@@ -15,7 +15,6 @@
   />
 
   <script>
-    // Tailwind config for dark mode
     tailwind.config = {
       darkMode: 'class',
     }
@@ -25,92 +24,216 @@
     html {
       scroll-behavior: smooth;
     }
+
+    /* Background animation container */
+    #backgroundAnimation {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .circle {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 200, 50, 0.6), transparent);
+      animation: fadeOut 1s linear forwards;
+    }
+
+    @keyframes fadeOut {
+      0% {
+        transform: scale(0.5);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(3);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 
-<body class="bg-amber-50 text-slate-900 transition-all duration-500 dark:bg-slate-900 dark:text-slate-100">
+<body
+  class="relative bg-amber-50 text-slate-900 transition-all duration-500 dark:bg-slate-900 dark:text-slate-100"
+>
+  <!-- Background animation layer -->
+  <div id="backgroundAnimation"></div>
 
   <!-- Header -->
-  <header class="w-full py-5 bg-white shadow-md sticky top-0 z-50 dark:bg-slate-800 dark:shadow-slate-700">
+  <header
+    class="w-full py-5 bg-white shadow-md sticky top-0 z-50 dark:bg-slate-800 dark:shadow-slate-700"
+  >
     <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
-      <h1 class="text-xl font-bold text-teal-700 dark:text-amber-400">Siyamul Hasan Rafi</h1>
+      <h1 class="text-xl font-bold text-teal-700 dark:text-amber-400">
+        Siyamul Hasan Rafi
+      </h1>
 
       <div class="flex items-center gap-4">
-        <button id="themeToggle" class="px-4 py-2 rounded-lg bg-teal-600 text-white font-semibold hover:bg-teal-700 transition">🌙 Dark Mode</button>
-        <a href="cv.pdf" download class="px-4 py-2 rounded-lg bg-amber-500 text-white font-semibold hover:bg-amber-600 transition">📄 Download CV</a>
+        <button
+          id="themeToggle"
+          class="px-4 py-2 rounded-lg bg-teal-600 text-white font-semibold hover:bg-teal-700 transition"
+        >
+          🌙 Dark Mode
+        </button>
+        <a
+          href="cv.pdf"
+          download
+          class="px-4 py-2 rounded-lg bg-amber-500 text-white font-semibold hover:bg-amber-600 transition"
+          >📄 Download CV</a
+        >
       </div>
     </div>
   </header>
 
   <!-- Hero Section -->
-  <section class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-10 items-center">
+  <section
+    class="relative z-10 max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-10 items-center"
+  >
     <div class="flex justify-center animate__animated animate__fadeInLeft">
-      <img src="raffi.png" alt="Rafi"
-           class="w-64 h-64 rounded-full shadow-xl ring-4 ring-amber-400 object-cover dark:ring-teal-500">
+      <img
+        src="raffi.png"
+        alt="Rafi"
+        class="w-64 h-64 rounded-full shadow-xl ring-4 ring-amber-400 object-cover dark:ring-teal-500"
+      />
     </div>
 
     <div class="animate__animated animate__fadeInRight">
-      <h2 class="text-4xl font-bold text-teal-700 mb-3 dark:text-amber-400">Siyamul Hasan Rafi</h2>
-      <p class="text-lg font-semibold text-slate-700 dark:text-slate-300">Android App Developer</p>
+      <h2 class="text-4xl font-bold text-teal-700 mb-3 dark:text-amber-400">
+        Siyamul Hasan Rafi
+      </h2>
+      <p class="text-lg font-semibold text-slate-700 dark:text-slate-300">
+        Android App Developer
+      </p>
       <p class="mt-4 text-slate-600 dark:text-slate-400">
-        With over <strong>4 years</strong> of experience in Android app design and development,
-        I specialize in creating modern, user-friendly mobile applications with Firebase integration and smooth UI/UX.
+        With over <strong>4 years</strong> of experience in Android app design
+        and development, I specialize in creating modern, user-friendly mobile
+        applications with Firebase integration and smooth UI/UX.
       </p>
 
       <div class="mt-6 flex gap-3 flex-wrap">
-        <a href="#services" class="px-5 py-3 bg-teal-600 text-white rounded-lg hover:scale-105 transition">My Services</a>
-        <a href="#contact" class="px-5 py-3 bg-white border border-slate-300 rounded-lg hover:bg-slate-100 transition dark:bg-slate-700 dark:border-slate-600 dark:hover:bg-slate-600">Contact Me</a>
+        <a
+          href="#services"
+          class="px-5 py-3 bg-teal-600 text-white rounded-lg hover:scale-105 transition"
+          >My Services</a
+        >
+        <a
+          href="#contact"
+          class="px-5 py-3 bg-white border border-slate-300 rounded-lg hover:bg-slate-100 transition dark:bg-slate-700 dark:border-slate-600 dark:hover:bg-slate-600"
+          >Contact Me</a
+        >
       </div>
     </div>
   </section>
 
   <!-- Services -->
-  <section id="services" class="max-w-6xl mx-auto px-6 py-12">
-    <h3 class="text-3xl font-bold text-center text-teal-700 mb-10 dark:text-amber-400">My Services</h3>
+  <section id="services" class="relative z-10 max-w-6xl mx-auto px-6 py-12">
+    <h3
+      class="text-3xl font-bold text-center text-teal-700 mb-10 dark:text-amber-400"
+    >
+      My Services
+    </h3>
     <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-      <div class="p-6 rounded-xl shadow-lg bg-white hover:shadow-2xl transition transform hover:-translate-y-2 animate__animated animate__fadeInUp dark:bg-slate-800 dark:shadow-slate-700">
+      <div
+        class="p-6 rounded-xl shadow-lg bg-white hover:shadow-2xl transition transform hover:-translate-y-2 animate__animated animate__fadeInUp dark:bg-slate-800 dark:shadow-slate-700"
+      >
         <h4 class="font-bold text-xl mb-2">App Design</h4>
-        <p class="text-slate-600 dark:text-slate-400">Beautiful UI/UX design using Material Design principles.</p>
+        <p class="text-slate-600 dark:text-slate-400">
+          Beautiful UI/UX design using Material Design principles.
+        </p>
       </div>
 
-      <div class="p-6 rounded-xl shadow-lg bg-white hover:shadow-2xl transition transform hover:-translate-y-2 animate__animated animate__fadeInUp dark:bg-slate-800 dark:shadow-slate-700">
+      <div
+        class="p-6 rounded-xl shadow-lg bg-white hover:shadow-2xl transition transform hover:-translate-y-2 animate__animated animate__fadeInUp dark:bg-slate-800 dark:shadow-slate-700"
+      >
         <h4 class="font-bold text-xl mb-2">App Development</h4>
-        <p class="text-slate-600 dark:text-slate-400">High-performance Android apps built with Java & Firebase.</p>
+        <p class="text-slate-600 dark:text-slate-400">
+          High-performance Android apps built with Java & Firebase.
+        </p>
       </div>
 
-      <div class="p-6 rounded-xl shadow-lg bg-white hover:shadow-2xl transition transform hover:-translate-y-2 animate__animated animate__fadeInUp dark:bg-slate-800 dark:shadow-slate-700">
+      <div
+        class="p-6 rounded-xl shadow-lg bg-white hover:shadow-2xl transition transform hover:-translate-y-2 animate__animated animate__fadeInUp dark:bg-slate-800 dark:shadow-slate-700"
+      >
         <h4 class="font-bold text-xl mb-2">Maintenance</h4>
-        <p class="text-slate-600 dark:text-slate-400">Bug fixing, updates, and long-term support for your apps.</p>
+        <p class="text-slate-600 dark:text-slate-400">
+          Bug fixing, updates, and long-term support for your apps.
+        </p>
       </div>
     </div>
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="max-w-6xl mx-auto px-6 py-12 text-center">
-    <h3 class="text-3xl font-bold text-teal-700 mb-4 dark:text-amber-400">Get in Touch</h3>
-    <p class="text-slate-600 mb-6 dark:text-slate-400">Feel free to reach out through any platform below 👇</p>
+  <section
+    id="contact"
+    class="relative z-10 max-w-6xl mx-auto px-6 py-12 text-center"
+  >
+    <h3
+      class="text-3xl font-bold text-teal-700 mb-4 dark:text-amber-400"
+    >
+      Get in Touch
+    </h3>
+    <p class="text-slate-600 mb-6 dark:text-slate-400">
+      Feel free to reach out through any platform below 👇
+    </p>
 
     <div class="flex justify-center flex-wrap gap-4">
-      <a href="mailto:mdraffi530@gmail.com" class="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition">📧 Email</a>
-      <a href="tel:01999842041" class="px-4 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition">📞 Call</a>
+      <a
+        href="mailto:mdraffi530@gmail.com"
+        class="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition"
+        >📧 Email</a
+      >
+      <a
+        href="tel:01999842041"
+        class="px-4 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition"
+        >📞 Call</a
+      >
     </div>
 
     <div class="mt-8 flex justify-center gap-4 flex-wrap">
-      <a href="https://web.facebook.com/programmerRafii" class="text-blue-600 font-semibold hover:underline dark:text-blue-400">Facebook</a>
-      <a href="https://tiktok.com/@siyamul_hasan_rafi" class="text-pink-500 font-semibold hover:underline dark:text-pink-400">TikTok</a>
-      <a href="https://github.com/Md-Rafii" class="text-gray-800 font-semibold hover:underline dark:text-gray-300">GitHub</a>
-      <a href="https://x.com/Siyamul_rafi_1" class="text-black font-semibold hover:underline dark:text-gray-100">Twitter (X)</a>
-      <a href="https://www.threads.com/@siyamul_hasan_rafi" class="text-purple-600 font-semibold hover:underline dark:text-purple-400">Threads</a>
-      <a href="https://www.instagram.com/siyamul_hasan_rafi" class="text-pink-600 font-semibold hover:underline dark:text-pink-400">Instagram</a>
+      <a
+        href="https://web.facebook.com/programmerRafii"
+        class="text-blue-600 font-semibold hover:underline dark:text-blue-400"
+        >Facebook</a
+      >
+      <a
+        href="https://tiktok.com/@siyamul_hasan_rafi"
+        class="text-pink-500 font-semibold hover:underline dark:text-pink-400"
+        >TikTok</a
+      >
+      <a
+        href="https://github.com/Md-Rafii"
+        class="text-gray-800 font-semibold hover:underline dark:text-gray-300"
+        >GitHub</a
+      >
+      <a
+        href="https://x.com/Siyamul_rafi_1"
+        class="text-black font-semibold hover:underline dark:text-gray-100"
+        >Twitter (X)</a
+      >
+      <a
+        href="https://www.threads.com/@siyamul_hasan_rafi"
+        class="text-purple-600 font-semibold hover:underline dark:text-purple-400"
+        >Threads</a
+      >
+      <a
+        href="https://www.instagram.com/siyamul_hasan_rafi"
+        class="text-pink-600 font-semibold hover:underline dark:text-pink-400"
+        >Instagram</a
+      >
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-gray-900 text-gray-300 text-center py-6 mt-12 dark:bg-slate-950 dark:text-slate-400">
+  <footer
+    class="bg-gray-900 text-gray-300 text-center py-6 mt-12 dark:bg-slate-950 dark:text-slate-400 relative z-10"
+  >
     <p>© 2025 Siyamul Hasan Rafi — All Rights Reserved.</p>
   </footer>
 
-  <!-- JS for Dark Mode -->
+  <!-- JS for Dark Mode + Background Animation -->
   <script>
     const btn = document.getElementById('themeToggle');
     const html = document.documentElement;
@@ -127,9 +250,22 @@
       btn.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
       localStorage.setItem('theme', isDark ? 'dark' : 'light');
     });
-  </script>
 
+    // Mouse background animation
+    const bg = document.getElementById('backgroundAnimation');
+    document.addEventListener('mousemove', (e) => {
+      const circle = document.createElement('div');
+      circle.className = 'circle';
+      circle.style.left = `${e.pageX - 20}px`;
+      circle.style.top = `${e.pageY - 20}px`;
+      circle.style.background = `radial-gradient(circle, rgba(${Math.floor(
+        Math.random() * 255
+      )}, ${Math.floor(Math.random() * 255)}, ${Math.floor(
+        Math.random() * 255
+      )}, 0.6), transparent)`;
+      bg.appendChild(circle);
+      setTimeout(() => circle.remove(), 1000);
+    });
+  </script>
 </body>
 </html>
-
-
