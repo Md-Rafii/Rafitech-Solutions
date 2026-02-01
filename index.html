@@ -17,6 +17,16 @@
           colors: {
             primary: '#0d9488', 
             secondary: '#f59e0b', 
+          },
+          animation: {
+            'float': 'float 3s ease-in-out infinite',
+            'pulse-slow': 'pulse 3s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            }
           }
         }
       }
@@ -33,6 +43,7 @@
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: #0d9488; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #0f766e; }
 
     /* Spider Canvas */
     #spiderCanvas {
@@ -44,6 +55,79 @@
       pointer-events: none;
       z-index: 9999;
     }
+
+    /* Custom Animations */
+    @keyframes gradient-bg {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .gradient-animate {
+      background: linear-gradient(-45deg, #0d9488, #0891b2, #0ea5e9, #06b6d4);
+      background-size: 400% 400%;
+      animation: gradient-bg 15s ease infinite;
+    }
+
+    .skill-card {
+      transition: all 0.3s ease;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(13, 148, 136, 0.2);
+    }
+
+    .typewriter {
+      overflow: hidden;
+      border-right: .15em solid #0d9488;
+      white-space: nowrap;
+      animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: #0d9488; }
+    }
+
+    /* Image enhancement */
+    .profile-image-wrapper {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2rem;
+    }
+
+    .profile-image-wrapper::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(13, 148, 136, 0.3), rgba(245, 158, 11, 0.1));
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .profile-image-wrapper:hover::before {
+      opacity: 1;
+    }
+
+    .profile-img {
+      transition: all 0.5s ease;
+      filter: grayscale(20%);
+    }
+
+    .profile-image-wrapper:hover .profile-img {
+      transform: scale(1.05);
+      filter: grayscale(0%);
+    }
   </style>
 </head>
 
@@ -51,50 +135,132 @@
   
   <canvas id="spiderCanvas"></canvas>
 
+  <!-- Navigation -->
   <nav class="fixed w-full z-50 glass border-b border-slate-200 dark:border-slate-800">
     <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
       <h1 class="text-2xl font-black tracking-tighter text-primary dark:text-secondary italic">
         SH<span class="text-slate-800 dark:text-white">RAFI</span>
       </h1>
       <div class="hidden md:flex gap-8 font-medium">
-        <a href="#home" class="hover:text-primary transition">Home</a>
-        <a href="#skills" class="hover:text-primary transition">Skills</a>
-        <a href="#live-demos" class="hover:text-primary transition">Web Projects</a>
-        <a href="#projects" class="hover:text-primary transition">Android</a>
-        <a href="#contact" class="hover:text-primary transition">Contact</a>
+        <a href="#home" class="hover:text-primary transition relative group">
+          <span>Home</span>
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+        </a>
+        <a href="#skills" class="hover:text-primary transition relative group">
+          <span>Skills</span>
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+        </a>
+        <a href="#live-demos" class="hover:text-primary transition relative group">
+          <span>Web Projects</span>
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+        </a>
+        <a href="#projects" class="hover:text-primary transition relative group">
+          <span>Android</span>
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+        </a>
+        <a href="#contact" class="hover:text-primary transition relative group">
+          <span>Contact</span>
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+        </a>
       </div>
       <div class="flex items-center gap-3">
-        <button id="themeToggle" class="p-2 w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 transition flex items-center justify-center">🌙</button>
-        <a href="https://wa.me/8801999842041" class="hidden sm:block px-5 py-2 bg-primary text-white rounded-full text-sm font-bold hover:shadow-lg transition">Hire Me</a>
+        <button id="themeToggle" class="p-2 w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 transition flex items-center justify-center hover:scale-110">🌙</button>
+        <a href="https://wa.me/8801999842041" class="px-5 py-2 bg-primary text-white rounded-full text-sm font-bold hover:shadow-lg transition hover:scale-105">Hire Me</a>
       </div>
     </div>
   </nav>
 
+  <!-- Hero Section -->
   <section id="home" class="pt-32 pb-20 px-6 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
     <div class="animate__animated animate__fadeInLeft">
-      <span class="px-4 py-1 bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400 rounded-full text-sm font-bold tracking-wide">
-        Available for Android Projects
+      <span class="px-4 py-1 bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400 rounded-full text-sm font-bold tracking-wide inline-flex items-center gap-2">
+        <i class="fa-solid fa-circle text-xs animate-pulse"></i> Available for Android Projects
       </span>
-      <h2 class="text-5xl md:text-6xl font-extrabold mt-4 leading-tight">
-        Mastering the <br/><span class="text-primary dark:text-secondary">Android Ecosystem</span>
+      <h2 class="text-5xl md:text-6xl font-extrabold mt-6 leading-tight">
+        Crafting <span class="text-primary dark:text-secondary">Digital Experiences</span> for Android
       </h2>
+      <div class="typewriter mt-2 text-xl text-slate-600 dark:text-slate-400 font-medium">
+        Expert Android Developer
+      </div>
       <p class="mt-6 text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-        Hi, I'm <span class="font-bold text-slate-900 dark:text-white">Siyamul Hasan Rafi</span>. Expert in Java/Kotlin, Firebase, and high-performance UI components with 4+ years of dedicated experience.
+        Hi, I'm <span class="font-bold text-slate-900 dark:text-white">Siyamul Hasan Rafi</span>. With 4+ years of experience, I specialize in building high-performance Android applications using Java, Kotlin, and modern Android architecture components.
       </p>
-      <div class="mt-8 flex gap-4">
-        <a href="#live-demos" class="px-8 py-4 bg-primary text-white rounded-xl font-bold hover:scale-105 transition shadow-lg shadow-teal-600/20">View Portfolio</a>
-        <a href="cv.pdf" download class="px-8 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl font-bold hover:bg-slate-100 transition flex items-center gap-2 shadow-sm">
-          <i class="fa-solid fa-download"></i> Get CV
+      <div class="mt-10 flex flex-wrap gap-4">
+        <a href="#live-demos" class="px-8 py-4 bg-primary text-white rounded-xl font-bold hover:scale-105 transition shadow-lg shadow-teal-600/20 flex items-center gap-2 group">
+          <span>View Portfolio</span>
+          <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
+        </a>
+        <a href="#contact" class="px-8 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl font-bold hover:bg-slate-100 transition flex items-center gap-2 shadow-sm group">
+          <i class="fa-solid fa-envelope"></i> 
+          <span>Get in Touch</span>
         </a>
       </div>
+      
+      <div class="mt-12 flex items-center gap-8">
+        <div class="text-center">
+          <div class="text-3xl font-bold text-primary">50+</div>
+          <div class="text-sm text-slate-500">Projects</div>
+        </div>
+        <div class="h-8 w-px bg-slate-300 dark:bg-slate-700"></div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-primary">4+</div>
+          <div class="text-sm text-slate-500">Years Experience</div>
+        </div>
+        <div class="h-8 w-px bg-slate-300 dark:bg-slate-700"></div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-primary">100%</div>
+          <div class="text-sm text-slate-500">Client Satisfaction</div>
+        </div>
+      </div>
     </div>
+    
+    <!-- Profile Image with raffi.png -->
     <div class="relative animate__animated animate__fadeInRight flex justify-center">
-      <div class="absolute inset-0 bg-primary/20 blur-3xl rounded-full animate-pulse"></div>
-      <img src="raffi.png" alt="Rafi" class="relative z-10 w-80 h-80 md:w-96 md:h-96 rounded-3xl object-cover shadow-2xl border-4 border-white dark:border-slate-800 transform hover:rotate-2 transition" />
+      <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 blur-3xl rounded-full animate-pulse"></div>
+      
+      <!-- Main Profile Image Container -->
+      <div class="relative z-10 profile-image-wrapper w-80 h-80 md:w-96 md:h-96 rounded-3xl shadow-2xl border-4 border-white dark:border-slate-800 overflow-hidden group">
+        <!-- Your Image -->
+        <img src="raffi.png" 
+             alt="Siyamul Hasan Rafi - Android Developer"
+             class="profile-img w-full h-full object-cover"
+             onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iIzBkOTQ4OCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iNjQiIGZpbGw9IiNmZmZmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIwLjNlbSI+U1I8L3RleHQ+PHRleHQgeD0iNTAlIiB5PSI2MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZmlsbD0iI2ZmZmZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QW5kcm9pZCBEZXZlbG9wZXI8L3RleHQ+PC9zdmc+'">
+        
+        <!-- Overlay Info on Hover -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 flex flex-col justify-end p-8">
+          <div class="text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+            <h3 class="text-2xl font-bold mb-2">Siyamul Hasan Rafi</h3>
+            <p class="text-white/90 mb-4">Android Developer</p>
+            <div class="flex gap-2">
+              <span class="px-3 py-1 bg-primary/80 text-white text-xs rounded-full">Kotlin</span>
+              <span class="px-3 py-1 bg-secondary/80 text-white text-xs rounded-full">Java</span>
+              <span class="px-3 py-1 bg-teal-500/80 text-white text-xs rounded-full">Firebase</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Android Badge -->
+        <div class="absolute top-6 right-6 w-14 h-14 bg-primary/90 rounded-xl flex items-center justify-center z-20 shadow-lg">
+          <i class="fa-brands fa-android text-2xl text-white"></i>
+        </div>
+        
+        <!-- Experience Badge -->
+        <div class="absolute top-6 left-6 bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 z-20 shadow-lg">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-star text-yellow-500"></i>
+            <span class="font-bold text-slate-800">4+ Years</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Floating Elements Around Image -->
+      <div class="absolute -top-4 -left-4 w-20 h-20 bg-primary/20 rounded-full animate-float z-0"></div>
+      <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-secondary/20 rounded-full animate-float z-0" style="animation-delay: 0.5s"></div>
     </div>
   </section>
 
-  <section id="live-demos" class="py-20 bg-slate-100 dark:bg-slate-900/30">
+  <!-- Web Projects Section -->
+  <section id="live-demos" class="py-20 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900/30 dark:to-slate-950">
     <div class="max-w-6xl mx-auto px-6">
       <div class="text-center mb-16">
         <h3 class="text-3xl font-bold flex items-center justify-center gap-3">
@@ -104,44 +270,78 @@
       </div>
 
       <div class="grid md:grid-cols-2 gap-8">
-        <div class="group relative p-1 rounded-[2rem] bg-gradient-to-br from-pink-400 to-primary hover:shadow-2xl transition duration-500">
-          <div class="bg-white dark:bg-slate-900 rounded-[1.9rem] p-8 h-full">
-            <div class="flex justify-between items-start mb-6">
-              <div class="w-14 h-14 bg-pink-100 dark:bg-pink-900/30 text-pink-500 flex items-center justify-center rounded-2xl text-2xl">
+        <!-- Wish Love Project -->
+        <div class="group relative p-1 rounded-3xl bg-gradient-to-br from-pink-400 via-purple-500 to-primary hover:shadow-2xl transition duration-500 hover:scale-[1.02]">
+          <div class="bg-white dark:bg-slate-900 rounded-[1.8rem] p-8 h-full relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-pink-500/10 rounded-full -translate-y-16 translate-x-16"></div>
+            
+            <div class="flex justify-between items-start mb-6 relative z-10">
+              <div class="w-14 h-14 bg-gradient-to-br from-pink-100 to-purple-100 dark:from-pink-900/30 dark:to-purple-900/30 text-pink-500 flex items-center justify-center rounded-2xl text-2xl">
                 <i class="fa-solid fa-heart animate__animated animate__heartBeat animate__infinite"></i>
               </div>
-              <a href="https://md-rafii.github.io/Wish_love/" target="_blank" class="text-primary hover:underline font-bold text-sm flex items-center gap-1">
-                Live Preview <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+              <a href="https://md-rafii.github.io/Wish_love/" target="_blank" class="text-primary hover:underline font-bold text-sm flex items-center gap-1 group/link">
+                Live Preview <i class="fa-solid fa-arrow-up-right-from-square text-xs group-hover/link:translate-x-1 transition"></i>
               </a>
             </div>
-            <h4 class="text-2xl font-bold mb-3 group-hover:text-primary transition">Wish Love Web</h4>
-            <p class="text-slate-500 dark:text-slate-400 mb-6 leading-relaxed text-sm">
-              An immersive and interactive web experience designed with smooth animations and creative wish-themed greetings.
+            
+            <h4 class="text-2xl font-bold mb-3 group-hover:text-primary transition relative z-10">Wish Love Web</h4>
+            <p class="text-slate-500 dark:text-slate-400 mb-6 leading-relaxed text-sm relative z-10">
+              An immersive and interactive web experience designed with smooth animations and creative wish-themed greetings. Features responsive design with engaging UI elements.
             </p>
-            <div class="flex gap-2">
-              <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-[10px] font-bold uppercase tracking-tighter">HTML/CSS</span>
-              <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-[10px] font-bold uppercase tracking-tighter">JavaScript</span>
+            
+            <div class="flex flex-wrap gap-2 relative z-10">
+              <span class="px-3 py-1 bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-400 rounded-full text-xs font-bold">HTML5</span>
+              <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 rounded-full text-xs font-bold">CSS3</span>
+              <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-full text-xs font-bold">JavaScript</span>
+              <span class="px-3 py-1 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-400 rounded-full text-xs font-bold">Animations</span>
+            </div>
+            
+            <div class="mt-6 pt-6 border-t border-slate-200 dark:border-slate-800 relative z-10">
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-slate-500">Interactive</span>
+                <div class="flex items-center gap-1">
+                  <i class="fa-solid fa-star text-yellow-500"></i>
+                  <span class="font-medium">5.0</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="group relative p-1 rounded-[2rem] bg-gradient-to-br from-red-500 to-secondary hover:shadow-2xl transition duration-500">
-          <div class="bg-white dark:bg-slate-900 rounded-[1.9rem] p-8 h-full">
-            <div class="flex justify-between items-start mb-6">
-              <div class="w-14 h-14 bg-red-100 dark:bg-red-900/30 text-red-600 flex items-center justify-center rounded-2xl text-2xl">
+        <!-- Blood Donor Project -->
+        <div class="group relative p-1 rounded-3xl bg-gradient-to-br from-red-500 via-orange-500 to-secondary hover:shadow-2xl transition duration-500 hover:scale-[1.02]">
+          <div class="bg-white dark:bg-slate-900 rounded-[1.8rem] p-8 h-full relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-red-500/10 rounded-full -translate-y-16 translate-x-16"></div>
+            
+            <div class="flex justify-between items-start mb-6 relative z-10">
+              <div class="w-14 h-14 bg-gradient-to-br from-red-100 to-orange-100 dark:from-red-900/30 dark:to-orange-900/30 text-red-600 flex items-center justify-center rounded-2xl text-2xl">
                 <i class="fa-solid fa-droplet animate__animated animate__pulse animate__infinite"></i>
               </div>
-              <a href="https://md-rafii.github.io/blood-donor-website/" target="_blank" class="text-secondary hover:underline font-bold text-sm flex items-center gap-1">
-                Live Preview <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+              <a href="https://md-rafii.github.io/blood-donor-website/" target="_blank" class="text-secondary hover:underline font-bold text-sm flex items-center gap-1 group/link">
+                Live Preview <i class="fa-solid fa-arrow-up-right-from-square text-xs group-hover/link:translate-x-1 transition"></i>
               </a>
             </div>
-            <h4 class="text-2xl font-bold mb-3 group-hover:text-secondary transition">Blood Donor Portal</h4>
-            <p class="text-slate-500 dark:text-slate-400 mb-6 leading-relaxed text-sm">
-              A community-driven platform designed to connect blood donors with recipients efficiently and responsively.
+            
+            <h4 class="text-2xl font-bold mb-3 group-hover:text-secondary transition relative z-10">Blood Donor Portal</h4>
+            <p class="text-slate-500 dark:text-slate-400 mb-6 leading-relaxed text-sm relative z-10">
+              A community-driven platform designed to connect blood donors with recipients efficiently. Features donor search, appointment system, and educational resources with responsive design.
             </p>
-            <div class="flex gap-2">
-              <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-[10px] font-bold uppercase tracking-tighter">Responsive UI</span>
-              <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-[10px] font-bold uppercase tracking-tighter">UX Concept</span>
+            
+            <div class="flex flex-wrap gap-2 relative z-10">
+              <span class="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded-full text-xs font-bold">Responsive UI</span>
+              <span class="px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 rounded-full text-xs font-bold">UX Design</span>
+              <span class="px-3 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 rounded-full text-xs font-bold">Community</span>
+              <span class="px-3 py-1 bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-400 rounded-full text-xs font-bold">Healthcare</span>
+            </div>
+            
+            <div class="mt-6 pt-6 border-t border-slate-200 dark:border-slate-800 relative z-10">
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-slate-500">Life-saving</span>
+                <div class="flex items-center gap-1">
+                  <i class="fa-solid fa-users text-blue-500"></i>
+                  <span class="font-medium">Community</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -149,90 +349,224 @@
     </div>
   </section>
 
+  <!-- Skills Section -->
   <section id="skills" class="py-20">
     <div class="max-w-6xl mx-auto px-6">
       <div class="text-center mb-16">
-        <h3 class="text-3xl font-bold">Expertise & Skills</h3>
+        <h3 class="text-3xl font-bold mb-3">Expertise & Skills</h3>
         <p class="text-slate-500 mt-2">Professional toolkit for modern app development</p>
       </div>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-        <div class="p-8 glass rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary transition group shadow-sm">
-          <i class="fa-brands fa-android text-5xl text-green-500 mb-4 group-hover:rotate-12 transition"></i>
-          <h4 class="font-bold">Android Studio</h4>
-        </div>
-        <div class="p-8 glass rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary transition group shadow-sm">
-          <i class="fa-brands fa-java text-5xl text-orange-600 mb-4 group-hover:rotate-12 transition"></i>
-          <h4 class="font-bold">Java/Kotlin</h4>
-        </div>
-        <div class="p-8 glass rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary transition group shadow-sm">
-          <i class="fa-solid fa-fire text-5xl text-yellow-500 mb-4 group-hover:rotate-12 transition"></i>
-          <h4 class="font-bold">Firebase</h4>
-        </div>
-        <div class="p-8 glass rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary transition group shadow-sm">
-          <i class="fa-solid fa-database text-5xl text-blue-500 mb-4 group-hover:rotate-12 transition"></i>
-          <h4 class="font-bold">Room DB</h4>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="projects" class="py-20 max-w-6xl mx-auto px-6">
-    <h3 class="text-3xl font-bold mb-12 flex items-center gap-4">
-      <i class="fa-solid fa-code text-primary"></i> Android Case Studies
-    </h3>
-    <div class="grid md:grid-cols-2 gap-10">
-      <div class="group glass rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 hover:shadow-2xl transition shadow-sm">
-        <div class="h-64 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
-        </div>
-        <div class="p-8">
-          <h4 class="text-2xl font-bold mb-2">Social Connect App</h4>
-          <p class="text-slate-500 mb-4 text-sm leading-relaxed">Real-time messaging platform with end-to-end encryption using Firebase and Kotlin.</p>
-          <div class="flex gap-4">
-            <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold uppercase">Kotlin</span>
-            <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold uppercase">Firebase</span>
-          </div>
-        </div>
-      </div>
-      <div class="group glass rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 hover:shadow-2xl transition shadow-sm">
-        <div class="h-64 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
-        </div>
-        <div class="p-8">
-          <h4 class="text-2xl font-bold mb-2">Task Automation Tool</h4>
-          <p class="text-slate-500 mb-4 text-sm leading-relaxed">An Android utility to automate repetitive tasks and background services efficiently.</p>
-          <div class="flex gap-4">
-            <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold uppercase">Java</span>
-            <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold uppercase">SQLite</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact" class="py-20 max-w-6xl mx-auto px-6">
-    <div class="bg-primary rounded-[3rem] p-12 md:p-20 text-center text-white relative overflow-hidden">
-      <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-20 -mt-20"></div>
-      <h3 class="text-4xl md:text-5xl font-bold mb-6">Ready to start a project?</h3>
-      <p class="text-teal-50 mb-10 max-w-xl mx-auto text-lg opacity-80">Let's discuss how we can build a world-class Android application together.</p>
       
-      <div class="flex flex-wrap justify-center gap-4">
-        <a href="mailto:mdraffi530@gmail.com" class="px-8 py-4 bg-white text-primary rounded-2xl font-bold flex items-center gap-3 hover:shadow-xl transition shadow-sm">
-          <i class="fa-solid fa-envelope"></i> Email Me
-        </a>
-        <a href="https://wa.me/8801999842041" class="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold flex items-center gap-3 hover:scale-105 transition shadow-sm">
-          <i class="fa-brands fa-whatsapp"></i> WhatsApp
-        </a>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <!-- Android Studio -->
+        <div class="skill-card p-8 glass rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary transition group shadow-sm text-center">
+          <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition">
+            <i class="fa-brands fa-android text-5xl text-green-500"></i>
+          </div>
+          <h4 class="font-bold text-lg mb-2">Android Studio</h4>
+          <p class="text-sm text-slate-500">Expert in Android development environment</p>
+          <div class="mt-4 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <div class="h-full bg-green-500 rounded-full w-4/5"></div>
+          </div>
+        </div>
+        
+        <!-- Java/Kotlin -->
+        <div class="skill-card p-8 glass rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary transition group shadow-sm text-center">
+          <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-orange-100 to-red-100 dark:from-orange-900/20 dark:to-red-900/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition">
+            <i class="fa-brands fa-java text-5xl text-orange-600"></i>
+          </div>
+          <h4 class="font-bold text-lg mb-2">Java/Kotlin</h4>
+          <p class="text-sm text-slate-500">Native Android development languages</p>
+          <div class="mt-4 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <div class="h-full bg-orange-500 rounded-full w-4/5"></div>
+          </div>
+        </div>
+        
+        <!-- Firebase -->
+        <div class="skill-card p-8 glass rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary transition group shadow-sm text-center">
+          <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-yellow-100 to-amber-100 dark:from-yellow-900/20 dark:to-amber-900/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition">
+            <i class="fa-solid fa-fire text-5xl text-yellow-500"></i>
+          </div>
+          <h4 class="font-bold text-lg mb-2">Firebase</h4>
+          <p class="text-sm text-slate-500">Backend & authentication solutions</p>
+          <div class="mt-4 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <div class="h-full bg-yellow-500 rounded-full w-3/4"></div>
+          </div>
+        </div>
+        
+        <!-- Room DB -->
+        <div class="skill-card p-8 glass rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary transition group shadow-sm text-center">
+          <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-blue-100 to-cyan-100 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition">
+            <i class="fa-solid fa-database text-5xl text-blue-500"></i>
+          </div>
+          <h4 class="font-bold text-lg mb-2">Room DB</h4>
+          <p class="text-sm text-slate-500">Local database management</p>
+          <div class="mt-4 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <div class="h-full bg-blue-500 rounded-full w-3/4"></div>
+          </div>
+        </div>
       </div>
-
-      <div class="mt-16 pt-10 border-t border-white/20 flex flex-wrap justify-center gap-8">
-        <a href="https://github.com/Md-Rafii" target="_blank" class="text-2xl hover:text-secondary transition"><i class="fa-brands fa-github"></i></a>
-        <a href="https://web.facebook.com/programmerRafii" target="_blank" class="text-2xl hover:text-secondary transition"><i class="fa-brands fa-facebook"></i></a>
-        <a href="https://instagram.com/siyamul_hasan_rafi" target="_blank" class="text-2xl hover:text-secondary transition"><i class="fa-brands fa-instagram"></i></a>
-        <a href="https://x.com/Siyamul_rafi_1" target="_blank" class="text-2xl hover:text-secondary transition"><i class="fa-brands fa-x-twitter"></i></a>
+      
+      <!-- Additional Skills -->
+      <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="text-center p-4">
+          <div class="text-primary font-bold text-xl">MVVM</div>
+          <div class="text-sm text-slate-500">Architecture</div>
+        </div>
+        <div class="text-center p-4">
+          <div class="text-primary font-bold text-xl">Jetpack</div>
+          <div class="text-sm text-slate-500">Components</div>
+        </div>
+        <div class="text-center p-4">
+          <div class="text-primary font-bold text-xl">REST API</div>
+          <div class="text-sm text-slate-500">Integration</div>
+        </div>
+        <div class="text-center p-4">
+          <div class="text-primary font-bold text-xl">Git</div>
+          <div class="text-sm text-slate-500">Version Control</div>
+        </div>
       </div>
     </div>
-    <p class="text-center mt-10 text-slate-500 text-sm">© 2025 Siyamul Hasan Rafi. Built with Passion for Innovation.</p>
+  </section>
+
+  <!-- Android Projects Section -->
+  <section id="projects" class="py-20 max-w-6xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <h3 class="text-3xl font-bold mb-3 flex items-center justify-center gap-3">
+        <i class="fa-solid fa-mobile-screen-button text-primary"></i> Android Case Studies
+      </h3>
+      <p class="text-slate-500 mt-2">Real-world applications built with modern Android technologies</p>
+    </div>
+    
+    <div class="grid md:grid-cols-2 gap-10">
+      <!-- Social Connect App -->
+      <div class="group relative overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 hover:shadow-2xl transition-all duration-500 shadow-sm">
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-500 to-primary opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
+        <div class="relative z-10">
+          <div class="h-64 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800&q=80" 
+                 class="w-full h-full object-cover group-hover:scale-110 transition duration-700" 
+                 alt="Social Connect App" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+          </div>
+          <div class="p-8">
+            <div class="flex items-center justify-between mb-4">
+              <h4 class="text-2xl font-bold">Social Connect App</h4>
+              <span class="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full">Kotlin</span>
+            </div>
+            <p class="text-slate-500 mb-6 leading-relaxed">
+              Real-time messaging platform with end-to-end encryption using Firebase and Kotlin. Features include group chats, media sharing, and push notifications.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold">Firebase</span>
+              <span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold">MVVM</span>
+              <span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold">Coroutines</span>
+              <span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold">Encryption</span>
+            </div>
+            <div class="mt-6 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+              <span class="text-sm text-slate-500">Completed Project</span>
+              <a href="#" class="text-primary font-medium text-sm flex items-center gap-1 hover:gap-2 transition-all">
+                View Details <i class="fa-solid fa-arrow-right text-xs"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Task Automation Tool -->
+      <div class="group relative overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 hover:shadow-2xl transition-all duration-500 shadow-sm">
+        <div class="absolute inset-0 bg-gradient-to-br from-green-500 to-teal-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
+        <div class="relative z-10">
+          <div class="h-64 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80" 
+                 class="w-full h-full object-cover group-hover:scale-110 transition duration-700" 
+                 alt="Task Automation Tool" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+          </div>
+          <div class="p-8">
+            <div class="flex items-center justify-between mb-4">
+              <h4 class="text-2xl font-bold">Task Automation Tool</h4>
+              <span class="px-3 py-1 bg-secondary/10 text-secondary text-xs font-bold rounded-full">Java</span>
+            </div>
+            <p class="text-slate-500 mb-6 leading-relaxed">
+              An Android utility to automate repetitive tasks and background services efficiently. Includes workflow automation, scheduling, and notification management.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold">WorkManager</span>
+              <span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold">SQLite</span>
+              <span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold">Background Services</span>
+              <span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold">Notifications</span>
+            </div>
+            <div class="mt-6 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+              <span class="text-sm text-slate-500">Ongoing Development</span>
+              <a href="#" class="text-secondary font-medium text-sm flex items-center gap-1 hover:gap-2 transition-all">
+                View Details <i class="fa-solid fa-arrow-right text-xs"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 max-w-6xl mx-auto px-6">
+    <div class="bg-gradient-to-br from-primary via-teal-600 to-emerald-600 rounded-3xl p-12 md:p-20 text-center text-white relative overflow-hidden">
+      <!-- Background Elements -->
+      <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-20 -mt-20"></div>
+      <div class="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full -ml-40 -mb-40"></div>
+      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-white/5 rounded-full"></div>
+      
+      <div class="relative z-10">
+        <h3 class="text-4xl md:text-5xl font-bold mb-6">Ready to Build Your Next Android App?</h3>
+        <p class="text-teal-50 mb-10 max-w-xl mx-auto text-lg opacity-90">
+          Let's discuss how we can build a world-class Android application together. I'm just a message away!
+        </p>
+        
+        <!-- Contact Methods -->
+        <div class="flex flex-wrap justify-center gap-6 mb-16">
+          <a href="mailto:mdraffi530@gmail.com" class="px-8 py-4 bg-white text-primary rounded-2xl font-bold flex items-center gap-3 hover:shadow-xl transition hover:scale-105 shadow-lg">
+            <i class="fa-solid fa-envelope text-lg"></i> Email Me
+          </a>
+          <a href="https://wa.me/8801999842041" target="_blank" class="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold flex items-center gap-3 hover:scale-105 transition shadow-lg">
+            <i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp
+          </a>
+          <a href="tel:+8801999842041" class="px-8 py-4 bg-white/20 backdrop-blur-sm text-white rounded-2xl font-bold flex items-center gap-3 hover:scale-105 transition border border-white/30">
+            <i class="fa-solid fa-phone text-lg"></i> Call Now
+          </a>
+        </div>
+        
+        <!-- Social Links -->
+        <div class="mt-16 pt-10 border-t border-white/20">
+          <p class="text-white/80 mb-6 text-lg">Connect with me on social media</p>
+          <div class="flex flex-wrap justify-center gap-8">
+            <a href="https://github.com/Md-Rafii" target="_blank" class="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center text-2xl hover:bg-white hover:text-primary transition hover:scale-110">
+              <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="https://web.facebook.com/programmerRafii" target="_blank" class="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center text-2xl hover:bg-white hover:text-primary transition hover:scale-110">
+              <i class="fa-brands fa-facebook"></i>
+            </a>
+            <a href="https://instagram.com/siyamul_hasan_rafi" target="_blank" class="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center text-2xl hover:bg-white hover:text-primary transition hover:scale-110">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://x.com/Siyamul_rafi_1" target="_blank" class="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center text-2xl hover:bg-white hover:text-primary transition hover:scale-110">
+              <i class="fa-brands fa-x-twitter"></i>
+            </a>
+            <a href="https://www.linkedin.com/" target="_blank" class="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center text-2xl hover:bg-white hover:text-primary transition hover:scale-110">
+              <i class="fa-brands fa-linkedin"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="mt-12 text-center">
+      <p class="text-slate-500 mb-2">© 2025 Siyamul Hasan Rafi. Built with Passion for Innovation.</p>
+      <p class="text-sm text-slate-400">
+        Android Developer | Kotlin Expert | UI/UX Enthusiast
+      </p>
+    </div>
   </section>
 
   <script>
@@ -252,6 +586,8 @@
       html.classList.toggle('dark');
       const isDark = html.classList.contains('dark');
       themeToggle.textContent = isDark ? '☀️' : '🌙';
+      themeToggle.classList.add('rotate-90');
+      setTimeout(() => themeToggle.classList.remove('rotate-90'), 300);
       localStorage.theme = isDark ? 'dark' : 'light';
     });
 
@@ -291,28 +627,100 @@
       ctx.strokeStyle = color;
 
       // Body & Head
-      ctx.beginPath(); ctx.ellipse(0, 0, 10, 14, 0, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.arc(0, -14, 7, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); 
+      ctx.ellipse(0, 0, 10, 14, 0, 0, Math.PI * 2); 
+      ctx.fill();
+      
+      ctx.beginPath(); 
+      ctx.arc(0, -14, 7, 0, Math.PI * 2); 
+      ctx.fill();
+      
       ctx.fillStyle = "white"; 
-      ctx.beginPath(); ctx.arc(-3, -16, 2, 0, Math.PI * 2); ctx.arc(3, -16, 2, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); 
+      ctx.arc(-3, -16, 2, 0, Math.PI * 2); 
+      ctx.arc(3, -16, 2, 0, Math.PI * 2); 
+      ctx.fill();
 
       // Animated Legs
       ctx.fillStyle = color;
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2.5;
+      ctx.lineCap = 'round';
+      
       const time = Date.now() * 0.015;
       for (let i = 0; i < 8; i++) {
         const side = i < 4 ? 1 : -1;
         const index = i % 4;
         const anim = Math.sin(time + i) * 0.3;
+        
         ctx.beginPath();
-        ctx.lineWidth = 2.5;
         ctx.moveTo(side * 6, index * 2 - 5);
-        ctx.quadraticCurveTo(side * 35, -20 + (index * 12) + (anim * 10), side * 25, 15 + (index * 5) + (anim * 10));
+        ctx.quadraticCurveTo(
+          side * 35, 
+          -20 + (index * 12) + (anim * 10), 
+          side * 25, 
+          15 + (index * 5) + (anim * 10)
+        );
         ctx.stroke();
       }
       ctx.restore();
       requestAnimationFrame(drawSpider);
     }
     drawSpider();
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Add animation on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+        }
+      });
+    }, observerOptions);
+
+    // Observe elements to animate
+    document.querySelectorAll('.skill-card, .group').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Profile image interaction
+    const profileImage = document.querySelector('.profile-image-wrapper');
+    if (profileImage) {
+      profileImage.addEventListener('click', function() {
+        this.classList.toggle('rotate-3');
+        setTimeout(() => this.classList.remove('rotate-3'), 300);
+      });
+    }
+
+    // Image error handling - if raffi.png doesn't exist, use fallback
+    const img = document.querySelector('.profile-img');
+    if (img) {
+      img.addEventListener('error', function() {
+        console.log('Image not found, using fallback');
+        this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iIzBkOTQ4OCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iNjQiIGZpbGw9IiNmZmZmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIwLjNlbSI+U1I8L3RleHQ+PHRleHQgeD0iNTAlIiB5PSI2MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZmlsbD0iI2ZmZmZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QW5kcm9pZCBEZXZlbG9wZXI8L3RleHQ+PC9zdmc+';
+      });
+    }
   </script>
 </body>
 </html>
