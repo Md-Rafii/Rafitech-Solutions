@@ -3,269 +3,316 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Siyamul Hasan Rafi | Android App Developer</title>
+  <title>Siyamul Hasan Rafi | Android Developer Portfolio</title>
 
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Animate.css -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <script>
     tailwind.config = {
       darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0d9488', 
+            secondary: '#f59e0b', 
+          }
+        }
+      }
     }
   </script>
 
   <style>
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
+    body { overflow-x: hidden; }
+    .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); }
+    .dark .glass { background: rgba(15, 23, 42, 0.8); }
+    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #0d9488; border-radius: 10px; }
 
-    /* Background animation container */
-    #backgroundAnimation {
+    /* Spider Canvas */
+    #spiderCanvas {
       position: fixed;
-      inset: 0;
-      z-index: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
-      overflow: hidden;
-    }
-
-    .circle {
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255, 200, 50, 0.6), transparent);
-      animation: fadeOut 1s linear forwards;
-    }
-
-    @keyframes fadeOut {
-      0% {
-        transform: scale(0.5);
-        opacity: 1;
-      }
-      100% {
-        transform: scale(3);
-        opacity: 0;
-      }
+      z-index: 9999;
     }
   </style>
 </head>
 
-<body
-  class="relative bg-amber-50 text-slate-900 transition-all duration-500 dark:bg-slate-900 dark:text-slate-100"
->
-  <!-- Background animation layer -->
-  <div id="backgroundAnimation"></div>
+<body class="bg-slate-50 text-slate-900 transition-all duration-500 dark:bg-slate-950 dark:text-slate-100">
+  
+  <canvas id="spiderCanvas"></canvas>
 
-  <!-- Header -->
-  <header
-    class="w-full py-5 bg-white shadow-md sticky top-0 z-50 dark:bg-slate-800 dark:shadow-slate-700"
-  >
-    <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
-      <h1 class="text-xl font-bold text-teal-700 dark:text-amber-400">
-        Siyamul Hasan Rafi
+  <nav class="fixed w-full z-50 glass border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-black tracking-tighter text-primary dark:text-secondary italic">
+        SH<span class="text-slate-800 dark:text-white">RAFI</span>
       </h1>
-
-      <div class="flex items-center gap-4">
-        <button
-          id="themeToggle"
-          class="px-4 py-2 rounded-lg bg-teal-600 text-white font-semibold hover:bg-teal-700 transition"
-        >
-          🌙 Dark Mode
-        </button>
-        <a
-          href="cv.pdf"
-          download
-          class="px-4 py-2 rounded-lg bg-amber-500 text-white font-semibold hover:bg-amber-600 transition"
-          >📄 Download CV</a
-        >
+      <div class="hidden md:flex gap-8 font-medium">
+        <a href="#home" class="hover:text-primary transition">Home</a>
+        <a href="#skills" class="hover:text-primary transition">Skills</a>
+        <a href="#live-demos" class="hover:text-primary transition">Web Projects</a>
+        <a href="#projects" class="hover:text-primary transition">Android</a>
+        <a href="#contact" class="hover:text-primary transition">Contact</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="themeToggle" class="p-2 w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 transition flex items-center justify-center">🌙</button>
+        <a href="https://wa.me/8801999842041" class="hidden sm:block px-5 py-2 bg-primary text-white rounded-full text-sm font-bold hover:shadow-lg transition">Hire Me</a>
       </div>
     </div>
-  </header>
+  </nav>
 
-  <!-- Hero Section -->
-  <section
-    class="relative z-10 max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-10 items-center"
-  >
-    <div class="flex justify-center animate__animated animate__fadeInLeft">
-      <img
-        src="raffi.png"
-        alt="Rafi"
-        class="w-64 h-64 rounded-full shadow-xl ring-4 ring-amber-400 object-cover dark:ring-teal-500"
-      />
-    </div>
-
-    <div class="animate__animated animate__fadeInRight">
-      <h2 class="text-4xl font-bold text-teal-700 mb-3 dark:text-amber-400">
-        Siyamul Hasan Rafi
+  <section id="home" class="pt-32 pb-20 px-6 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+    <div class="animate__animated animate__fadeInLeft">
+      <span class="px-4 py-1 bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400 rounded-full text-sm font-bold tracking-wide">
+        Available for Android Projects
+      </span>
+      <h2 class="text-5xl md:text-6xl font-extrabold mt-4 leading-tight">
+        Mastering the <br/><span class="text-primary dark:text-secondary">Android Ecosystem</span>
       </h2>
-      <p class="text-lg font-semibold text-slate-700 dark:text-slate-300">
-        Android App Developer
+      <p class="mt-6 text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+        Hi, I'm <span class="font-bold text-slate-900 dark:text-white">Siyamul Hasan Rafi</span>. Expert in Java/Kotlin, Firebase, and high-performance UI components with 4+ years of dedicated experience.
       </p>
-      <p class="mt-4 text-slate-600 dark:text-slate-400">
-        With over <strong>4 years</strong> of experience in Android app design
-        and development, I specialize in creating modern, user-friendly mobile
-        applications with Firebase integration and smooth UI/UX.
-      </p>
+      <div class="mt-8 flex gap-4">
+        <a href="#live-demos" class="px-8 py-4 bg-primary text-white rounded-xl font-bold hover:scale-105 transition shadow-lg shadow-teal-600/20">View Portfolio</a>
+        <a href="cv.pdf" download class="px-8 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl font-bold hover:bg-slate-100 transition flex items-center gap-2 shadow-sm">
+          <i class="fa-solid fa-download"></i> Get CV
+        </a>
+      </div>
+    </div>
+    <div class="relative animate__animated animate__fadeInRight flex justify-center">
+      <div class="absolute inset-0 bg-primary/20 blur-3xl rounded-full animate-pulse"></div>
+      <img src="raffi.png" alt="Rafi" class="relative z-10 w-80 h-80 md:w-96 md:h-96 rounded-3xl object-cover shadow-2xl border-4 border-white dark:border-slate-800 transform hover:rotate-2 transition" />
+    </div>
+  </section>
 
-      <div class="mt-6 flex gap-3 flex-wrap">
-        <a
-          href="#services"
-          class="px-5 py-3 bg-teal-600 text-white rounded-lg hover:scale-105 transition"
-          >My Services</a
-        >
-        <a
-          href="#contact"
-          class="px-5 py-3 bg-white border border-slate-300 rounded-lg hover:bg-slate-100 transition dark:bg-slate-700 dark:border-slate-600 dark:hover:bg-slate-600"
-          >Contact Me</a
-        >
+  <section id="live-demos" class="py-20 bg-slate-100 dark:bg-slate-900/30">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h3 class="text-3xl font-bold flex items-center justify-center gap-3">
+          <i class="fa-solid fa-globe text-primary animate-pulse"></i> Live Web Demos
+        </h3>
+        <p class="text-slate-500 mt-2 italic tracking-wide">Exploring web interactions and creative UI</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="group relative p-1 rounded-[2rem] bg-gradient-to-br from-pink-400 to-primary hover:shadow-2xl transition duration-500">
+          <div class="bg-white dark:bg-slate-900 rounded-[1.9rem] p-8 h-full">
+            <div class="flex justify-between items-start mb-6">
+              <div class="w-14 h-14 bg-pink-100 dark:bg-pink-900/30 text-pink-500 flex items-center justify-center rounded-2xl text-2xl">
+                <i class="fa-solid fa-heart animate__animated animate__heartBeat animate__infinite"></i>
+              </div>
+              <a href="https://md-rafii.github.io/Wish_love/" target="_blank" class="text-primary hover:underline font-bold text-sm flex items-center gap-1">
+                Live Preview <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+              </a>
+            </div>
+            <h4 class="text-2xl font-bold mb-3 group-hover:text-primary transition">Wish Love Web</h4>
+            <p class="text-slate-500 dark:text-slate-400 mb-6 leading-relaxed text-sm">
+              An immersive and interactive web experience designed with smooth animations and creative wish-themed greetings.
+            </p>
+            <div class="flex gap-2">
+              <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-[10px] font-bold uppercase tracking-tighter">HTML/CSS</span>
+              <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-[10px] font-bold uppercase tracking-tighter">JavaScript</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="group relative p-1 rounded-[2rem] bg-gradient-to-br from-red-500 to-secondary hover:shadow-2xl transition duration-500">
+          <div class="bg-white dark:bg-slate-900 rounded-[1.9rem] p-8 h-full">
+            <div class="flex justify-between items-start mb-6">
+              <div class="w-14 h-14 bg-red-100 dark:bg-red-900/30 text-red-600 flex items-center justify-center rounded-2xl text-2xl">
+                <i class="fa-solid fa-droplet animate__animated animate__pulse animate__infinite"></i>
+              </div>
+              <a href="https://md-rafii.github.io/blood-donor-website/" target="_blank" class="text-secondary hover:underline font-bold text-sm flex items-center gap-1">
+                Live Preview <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+              </a>
+            </div>
+            <h4 class="text-2xl font-bold mb-3 group-hover:text-secondary transition">Blood Donor Portal</h4>
+            <p class="text-slate-500 dark:text-slate-400 mb-6 leading-relaxed text-sm">
+              A community-driven platform designed to connect blood donors with recipients efficiently and responsively.
+            </p>
+            <div class="flex gap-2">
+              <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-[10px] font-bold uppercase tracking-tighter">Responsive UI</span>
+              <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-[10px] font-bold uppercase tracking-tighter">UX Concept</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Services -->
-  <section id="services" class="relative z-10 max-w-6xl mx-auto px-6 py-12">
-    <h3
-      class="text-3xl font-bold text-center text-teal-700 mb-10 dark:text-amber-400"
-    >
-      My Services
+  <section id="skills" class="py-20">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h3 class="text-3xl font-bold">Expertise & Skills</h3>
+        <p class="text-slate-500 mt-2">Professional toolkit for modern app development</p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div class="p-8 glass rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary transition group shadow-sm">
+          <i class="fa-brands fa-android text-5xl text-green-500 mb-4 group-hover:rotate-12 transition"></i>
+          <h4 class="font-bold">Android Studio</h4>
+        </div>
+        <div class="p-8 glass rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary transition group shadow-sm">
+          <i class="fa-brands fa-java text-5xl text-orange-600 mb-4 group-hover:rotate-12 transition"></i>
+          <h4 class="font-bold">Java/Kotlin</h4>
+        </div>
+        <div class="p-8 glass rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary transition group shadow-sm">
+          <i class="fa-solid fa-fire text-5xl text-yellow-500 mb-4 group-hover:rotate-12 transition"></i>
+          <h4 class="font-bold">Firebase</h4>
+        </div>
+        <div class="p-8 glass rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary transition group shadow-sm">
+          <i class="fa-solid fa-database text-5xl text-blue-500 mb-4 group-hover:rotate-12 transition"></i>
+          <h4 class="font-bold">Room DB</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="py-20 max-w-6xl mx-auto px-6">
+    <h3 class="text-3xl font-bold mb-12 flex items-center gap-4">
+      <i class="fa-solid fa-code text-primary"></i> Android Case Studies
     </h3>
-    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-      <div
-        class="p-6 rounded-xl shadow-lg bg-white hover:shadow-2xl transition transform hover:-translate-y-2 animate__animated animate__fadeInUp dark:bg-slate-800 dark:shadow-slate-700"
-      >
-        <h4 class="font-bold text-xl mb-2">App Design</h4>
-        <p class="text-slate-600 dark:text-slate-400">
-          Beautiful UI/UX design using Material Design principles.
-        </p>
+    <div class="grid md:grid-cols-2 gap-10">
+      <div class="group glass rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 hover:shadow-2xl transition shadow-sm">
+        <div class="h-64 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+        </div>
+        <div class="p-8">
+          <h4 class="text-2xl font-bold mb-2">Social Connect App</h4>
+          <p class="text-slate-500 mb-4 text-sm leading-relaxed">Real-time messaging platform with end-to-end encryption using Firebase and Kotlin.</p>
+          <div class="flex gap-4">
+            <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold uppercase">Kotlin</span>
+            <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold uppercase">Firebase</span>
+          </div>
+        </div>
       </div>
-
-      <div
-        class="p-6 rounded-xl shadow-lg bg-white hover:shadow-2xl transition transform hover:-translate-y-2 animate__animated animate__fadeInUp dark:bg-slate-800 dark:shadow-slate-700"
-      >
-        <h4 class="font-bold text-xl mb-2">App Development</h4>
-        <p class="text-slate-600 dark:text-slate-400">
-          High-performance Android apps built with Java & Firebase.
-        </p>
-      </div>
-
-      <div
-        class="p-6 rounded-xl shadow-lg bg-white hover:shadow-2xl transition transform hover:-translate-y-2 animate__animated animate__fadeInUp dark:bg-slate-800 dark:shadow-slate-700"
-      >
-        <h4 class="font-bold text-xl mb-2">Maintenance</h4>
-        <p class="text-slate-600 dark:text-slate-400">
-          Bug fixing, updates, and long-term support for your apps.
-        </p>
+      <div class="group glass rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 hover:shadow-2xl transition shadow-sm">
+        <div class="h-64 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+        </div>
+        <div class="p-8">
+          <h4 class="text-2xl font-bold mb-2">Task Automation Tool</h4>
+          <p class="text-slate-500 mb-4 text-sm leading-relaxed">An Android utility to automate repetitive tasks and background services efficiently.</p>
+          <div class="flex gap-4">
+            <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold uppercase">Java</span>
+            <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold uppercase">SQLite</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section
-    id="contact"
-    class="relative z-10 max-w-6xl mx-auto px-6 py-12 text-center"
-  >
-    <h3
-      class="text-3xl font-bold text-teal-700 mb-4 dark:text-amber-400"
-    >
-      Get in Touch
-    </h3>
-    <p class="text-slate-600 mb-6 dark:text-slate-400">
-      Feel free to reach out through any platform below 👇
-    </p>
+  <section id="contact" class="py-20 max-w-6xl mx-auto px-6">
+    <div class="bg-primary rounded-[3rem] p-12 md:p-20 text-center text-white relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-20 -mt-20"></div>
+      <h3 class="text-4xl md:text-5xl font-bold mb-6">Ready to start a project?</h3>
+      <p class="text-teal-50 mb-10 max-w-xl mx-auto text-lg opacity-80">Let's discuss how we can build a world-class Android application together.</p>
+      
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="mailto:mdraffi530@gmail.com" class="px-8 py-4 bg-white text-primary rounded-2xl font-bold flex items-center gap-3 hover:shadow-xl transition shadow-sm">
+          <i class="fa-solid fa-envelope"></i> Email Me
+        </a>
+        <a href="https://wa.me/8801999842041" class="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold flex items-center gap-3 hover:scale-105 transition shadow-sm">
+          <i class="fa-brands fa-whatsapp"></i> WhatsApp
+        </a>
+      </div>
 
-    <div class="flex justify-center flex-wrap gap-4">
-      <a
-        href="mailto:mdraffi530@gmail.com"
-        class="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition"
-        >📧 Email</a
-      >
-      <a
-        href="tel:01999842041"
-        class="px-4 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition"
-        >📞 Call</a
-      >
+      <div class="mt-16 pt-10 border-t border-white/20 flex flex-wrap justify-center gap-8">
+        <a href="https://github.com/Md-Rafii" target="_blank" class="text-2xl hover:text-secondary transition"><i class="fa-brands fa-github"></i></a>
+        <a href="https://web.facebook.com/programmerRafii" target="_blank" class="text-2xl hover:text-secondary transition"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://instagram.com/siyamul_hasan_rafi" target="_blank" class="text-2xl hover:text-secondary transition"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://x.com/Siyamul_rafi_1" target="_blank" class="text-2xl hover:text-secondary transition"><i class="fa-brands fa-x-twitter"></i></a>
+      </div>
     </div>
-
-    <div class="mt-8 flex justify-center gap-4 flex-wrap">
-      <a
-        href="https://web.facebook.com/programmerRafii"
-        class="text-blue-600 font-semibold hover:underline dark:text-blue-400"
-        >Facebook</a
-      >
-      <a
-        href="https://tiktok.com/@siyamul_hasan_rafi"
-        class="text-pink-500 font-semibold hover:underline dark:text-pink-400"
-        >TikTok</a
-      >
-      <a
-        href="https://github.com/Md-Rafii"
-        class="text-gray-800 font-semibold hover:underline dark:text-gray-300"
-        >GitHub</a
-      >
-      <a
-        href="https://x.com/Siyamul_rafi_1"
-        class="text-black font-semibold hover:underline dark:text-gray-100"
-        >Twitter (X)</a
-      >
-      <a
-        href="https://www.threads.com/@siyamul_hasan_rafi"
-        class="text-purple-600 font-semibold hover:underline dark:text-purple-400"
-        >Threads</a
-      >
-      <a
-        href="https://www.instagram.com/siyamul_hasan_rafi"
-        class="text-pink-600 font-semibold hover:underline dark:text-pink-400"
-        >Instagram</a
-      >
-    </div>
+    <p class="text-center mt-10 text-slate-500 text-sm">© 2025 Siyamul Hasan Rafi. Built with Passion for Innovation.</p>
   </section>
 
-  <!-- Footer -->
-  <footer
-    class="bg-gray-900 text-gray-300 text-center py-6 mt-12 dark:bg-slate-950 dark:text-slate-400 relative z-10"
-  >
-    <p>© 2025 Siyamul Hasan Rafi — All Rights Reserved.</p>
-  </footer>
-
-  <!-- JS for Dark Mode + Background Animation -->
   <script>
-    const btn = document.getElementById('themeToggle');
+    // Theme Switcher Logic
+    const themeToggle = document.getElementById('themeToggle');
     const html = document.documentElement;
 
-    // Load saved theme
-    if (localStorage.getItem('theme') === 'dark') {
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
       html.classList.add('dark');
-      btn.textContent = '☀️ Light Mode';
+      themeToggle.textContent = '☀️';
+    } else {
+      html.classList.remove('dark');
+      themeToggle.textContent = '🌙';
     }
 
-    btn.addEventListener('click', () => {
+    themeToggle.addEventListener('click', () => {
       html.classList.toggle('dark');
       const isDark = html.classList.contains('dark');
-      btn.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      themeToggle.textContent = isDark ? '☀️' : '🌙';
+      localStorage.theme = isDark ? 'dark' : 'light';
     });
 
-    // Mouse background animation
-    const bg = document.getElementById('backgroundAnimation');
-    document.addEventListener('mousemove', (e) => {
-      const circle = document.createElement('div');
-      circle.className = 'circle';
-      circle.style.left = `${e.pageX - 20}px`;
-      circle.style.top = `${e.pageY - 20}px`;
-      circle.style.background = `radial-gradient(circle, rgba(${Math.floor(
-        Math.random() * 255
-      )}, ${Math.floor(Math.random() * 255)}, ${Math.floor(
-        Math.random() * 255
-      )}, 0.6), transparent)`;
-      bg.appendChild(circle);
-      setTimeout(() => circle.remove(), 1000);
+    // Interactive Spider Logic
+    const canvas = document.getElementById('spiderCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    let width, height;
+    let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    let spider = { x: mouse.x, y: mouse.y, angle: 0 };
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resize);
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
     });
+
+    resize();
+
+    function drawSpider() {
+      ctx.clearRect(0, 0, width, height);
+      spider.x += (mouse.x - spider.x) * 0.08;
+      spider.y += (mouse.y - spider.y) * 0.08;
+      spider.angle = Math.atan2(mouse.y - spider.y, mouse.x - spider.x);
+
+      ctx.save();
+      ctx.translate(spider.x, spider.y);
+      ctx.rotate(spider.angle + Math.PI / 2);
+
+      const color = document.documentElement.classList.contains('dark') ? '#f59e0b' : '#0d9488';
+      ctx.fillStyle = color;
+      ctx.strokeStyle = color;
+
+      // Body & Head
+      ctx.beginPath(); ctx.ellipse(0, 0, 10, 14, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(0, -14, 7, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = "white"; 
+      ctx.beginPath(); ctx.arc(-3, -16, 2, 0, Math.PI * 2); ctx.arc(3, -16, 2, 0, Math.PI * 2); ctx.fill();
+
+      // Animated Legs
+      ctx.fillStyle = color;
+      const time = Date.now() * 0.015;
+      for (let i = 0; i < 8; i++) {
+        const side = i < 4 ? 1 : -1;
+        const index = i % 4;
+        const anim = Math.sin(time + i) * 0.3;
+        ctx.beginPath();
+        ctx.lineWidth = 2.5;
+        ctx.moveTo(side * 6, index * 2 - 5);
+        ctx.quadraticCurveTo(side * 35, -20 + (index * 12) + (anim * 10), side * 25, 15 + (index * 5) + (anim * 10));
+        ctx.stroke();
+      }
+      ctx.restore();
+      requestAnimationFrame(drawSpider);
+    }
+    drawSpider();
   </script>
 </body>
 </html>
