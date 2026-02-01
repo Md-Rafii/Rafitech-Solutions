@@ -3,7 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Siyamul Hasan Rafi | Android Developer Portfolio</title>
+  <title>Siyamul Hasan Rafi | Senior Android Developer | 4+ Years Experience</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Siyamul Hasan Rafi - Expert Android Developer with 4+ years experience in Java, Kotlin, Firebase. Building high-performance Android applications with modern architecture.">
+  <meta name="keywords" content="Android Developer, Kotlin, Java, Firebase, Android Studio, Mobile App Development, Bangladesh Developer, Android Architecture">
+  <meta name="author" content="Siyamul Hasan Rafi">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Siyamul Hasan Rafi | Senior Android Developer Portfolio">
+  <meta property="og:description" content="Expert Android Developer specializing in Java, Kotlin, Firebase, and modern Android development with 4+ years experience.">
+  <meta property="og:image" content="https://yourdomain.com/raffi.png">
+  <meta property="og:url" content="https://yourdomain.com">
+  <meta property="og:type" content="website">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Siyamul Hasan Rafi | Android Developer">
+  <meta name="twitter:description" content="4+ years experience in Android development. Expert in Java, Kotlin, Firebase, MVVM, Jetpack Compose.">
+  <meta name="twitter:image" content="https://yourdomain.com/raffi.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
@@ -21,11 +43,26 @@
           animation: {
             'float': 'float 3s ease-in-out infinite',
             'pulse-slow': 'pulse 3s ease-in-out infinite',
+            'progress': 'progress 1.5s ease-out forwards',
+            'typing': 'typing 3.5s steps(40, end)',
+            'blink': 'blink 0.75s step-end infinite',
           },
           keyframes: {
             float: {
               '0%, 100%': { transform: 'translateY(0)' },
               '50%': { transform: 'translateY(-10px)' },
+            },
+            progress: {
+              '0%': { width: '0%' },
+              '100%': { width: 'var(--progress-width)' }
+            },
+            typing: {
+              'from': { width: '0' },
+              'to': { width: '100%' }
+            },
+            blink: {
+              'from, to': { 'border-color': 'transparent' },
+              '50%': { 'border-color': '#0d9488' }
             }
           }
         }
@@ -82,17 +119,7 @@
       overflow: hidden;
       border-right: .15em solid #0d9488;
       white-space: nowrap;
-      animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
-    }
-
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
-
-    @keyframes blink-caret {
-      from, to { border-color: transparent }
-      50% { border-color: #0d9488; }
+      animation: typing 3.5s steps(40, end), blink .75s step-end infinite;
     }
 
     /* Image enhancement */
@@ -128,6 +155,77 @@
       transform: scale(1.05);
       filter: grayscale(0%);
     }
+
+    /* Timeline Styles */
+    .timeline-line {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(to bottom, #0d9488, #f59e0b);
+    }
+
+    .timeline-dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    /* Progress bar animation */
+    .progress-bar {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: linear-gradient(90deg, #0d9488, #0f766e);
+      border-radius: 9999px;
+      animation: progress 1.5s ease-out forwards;
+    }
+
+    /* Lazy loading */
+    img.lazy {
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    img.loaded {
+      opacity: 1;
+    }
+
+    /* Print styles */
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; color: black !important; }
+      a { color: black !important; text-decoration: underline !important; }
+      .bg-primary { background: #0d9488 !important; -webkit-print-color-adjust: exact; }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Form focus styles */
+    .form-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+    }
   </style>
 </head>
 
@@ -136,7 +234,7 @@
   <canvas id="spiderCanvas"></canvas>
 
   <!-- Navigation -->
-  <nav class="fixed w-full z-50 glass border-b border-slate-200 dark:border-slate-800">
+  <nav class="fixed w-full z-50 glass border-b border-slate-200 dark:border-slate-800 no-print">
     <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
       <h1 class="text-2xl font-black tracking-tighter text-primary dark:text-secondary italic">
         SH<span class="text-slate-800 dark:text-white">RAFI</span>
@@ -150,12 +248,20 @@
           <span>Skills</span>
           <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
         </a>
+        <a href="#experience" class="hover:text-primary transition relative group">
+          <span>Experience</span>
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+        </a>
         <a href="#live-demos" class="hover:text-primary transition relative group">
           <span>Web Projects</span>
           <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
         </a>
         <a href="#projects" class="hover:text-primary transition relative group">
           <span>Android</span>
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+        </a>
+        <a href="#testimonials" class="hover:text-primary transition relative group">
+          <span>Testimonials</span>
           <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
         </a>
         <a href="#contact" class="hover:text-primary transition relative group">
@@ -165,7 +271,7 @@
       </div>
       <div class="flex items-center gap-3">
         <button id="themeToggle" class="p-2 w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 transition flex items-center justify-center hover:scale-110">🌙</button>
-        <a href="https://wa.me/8801999842041" class="px-5 py-2 bg-primary text-white rounded-full text-sm font-bold hover:shadow-lg transition hover:scale-105">Hire Me</a>
+        <a href="https://wa.me/8801999842041" target="_blank" class="px-5 py-2 bg-primary text-white rounded-full text-sm font-bold hover:shadow-lg transition hover:scale-105 no-print">Hire Me</a>
       </div>
     </div>
   </nav>
@@ -186,11 +292,11 @@
         Hi, I'm <span class="font-bold text-slate-900 dark:text-white">Siyamul Hasan Rafi</span>. With 4+ years of experience, I specialize in building high-performance Android applications using Java, Kotlin, and modern Android architecture components.
       </p>
       <div class="mt-10 flex flex-wrap gap-4">
-        <a href="#live-demos" class="px-8 py-4 bg-primary text-white rounded-xl font-bold hover:scale-105 transition shadow-lg shadow-teal-600/20 flex items-center gap-2 group">
+        <a href="#projects" class="px-8 py-4 bg-primary text-white rounded-xl font-bold hover:scale-105 transition shadow-lg shadow-teal-600/20 flex items-center gap-2 group no-print">
           <span>View Portfolio</span>
           <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
         </a>
-        <a href="#contact" class="px-8 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl font-bold hover:bg-slate-100 transition flex items-center gap-2 shadow-sm group">
+        <a href="#contact" class="px-8 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl font-bold hover:bg-slate-100 transition flex items-center gap-2 shadow-sm group no-print">
           <i class="fa-solid fa-envelope"></i> 
           <span>Get in Touch</span>
         </a>
@@ -214,7 +320,7 @@
       </div>
     </div>
     
-    <!-- Profile Image with raffi.png -->
+    <!-- Profile Image -->
     <div class="relative animate__animated animate__fadeInRight flex justify-center">
       <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 blur-3xl rounded-full animate-pulse"></div>
       
@@ -259,8 +365,187 @@
     </div>
   </section>
 
+  <!-- Skills Section with Progress Bars -->
+  <section id="skills" class="py-20">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h3 class="text-3xl font-bold mb-3">Expertise & Skills</h3>
+        <p class="text-slate-500 mt-2">Professional toolkit for modern app development</p>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+        <div class="skill-card p-8 glass rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary transition group shadow-sm text-center">
+          <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition">
+            <i class="fa-brands fa-android text-5xl text-green-500"></i>
+          </div>
+          <h4 class="font-bold text-lg mb-2">Android Studio</h4>
+          <p class="text-sm text-slate-500">Expert in Android development environment</p>
+        </div>
+        
+        <div class="skill-card p-8 glass rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary transition group shadow-sm text-center">
+          <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-orange-100 to-red-100 dark:from-orange-900/20 dark:to-red-900/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition">
+            <i class="fa-brands fa-java text-5xl text-orange-600"></i>
+          </div>
+          <h4 class="font-bold text-lg mb-2">Java/Kotlin</h4>
+          <p class="text-sm text-slate-500">Native Android development languages</p>
+        </div>
+        
+        <div class="skill-card p-8 glass rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary transition group shadow-sm text-center">
+          <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-yellow-100 to-amber-100 dark:from-yellow-900/20 dark:to-amber-900/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition">
+            <i class="fa-solid fa-fire text-5xl text-yellow-500"></i>
+          </div>
+          <h4 class="font-bold text-lg mb-2">Firebase</h4>
+          <p class="text-sm text-slate-500">Backend & authentication solutions</p>
+        </div>
+        
+        <div class="skill-card p-8 glass rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary transition group shadow-sm text-center">
+          <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-blue-100 to-cyan-100 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition">
+            <i class="fa-solid fa-database text-5xl text-blue-500"></i>
+          </div>
+          <h4 class="font-bold text-lg mb-2">Room DB</h4>
+          <p class="text-sm text-slate-500">Local database management</p>
+        </div>
+      </div>
+
+      <!-- Animated Progress Bars -->
+      <div class="mt-8 space-y-6">
+        <div>
+          <div class="flex justify-between mb-2">
+            <span class="font-semibold">Kotlin & Jetpack Compose</span>
+            <span class="text-primary font-bold">95%</span>
+          </div>
+          <div class="h-3 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <div class="h-full bg-primary rounded-full progress-bar" style="--progress-width: 95%;"></div>
+          </div>
+        </div>
+        
+        <div>
+          <div class="flex justify-between mb-2">
+            <span class="font-semibold">Java & Android SDK</span>
+            <span class="text-primary font-bold">90%</span>
+          </div>
+          <div class="h-3 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <div class="h-full bg-primary rounded-full progress-bar" style="--progress-width: 90%;"></div>
+          </div>
+        </div>
+        
+        <div>
+          <div class="flex justify-between mb-2">
+            <span class="font-semibold">Firebase & Backend Integration</span>
+            <span class="text-primary font-bold">85%</span>
+          </div>
+          <div class="h-3 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <div class="h-full bg-primary rounded-full progress-bar" style="--progress-width: 85%;"></div>
+          </div>
+        </div>
+        
+        <div>
+          <div class="flex justify-between mb-2">
+            <span class="font-semibold">Architecture (MVVM, Clean Arch)</span>
+            <span class="text-primary font-bold">88%</span>
+          </div>
+          <div class="h-3 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <div class="h-full bg-primary rounded-full progress-bar" style="--progress-width: 88%;"></div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Additional Skills -->
+      <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="text-center p-4">
+          <div class="text-primary font-bold text-xl">MVVM</div>
+          <div class="text-sm text-slate-500">Architecture</div>
+        </div>
+        <div class="text-center p-4">
+          <div class="text-primary font-bold text-xl">Jetpack</div>
+          <div class="text-sm text-slate-500">Components</div>
+        </div>
+        <div class="text-center p-4">
+          <div class="text-primary font-bold text-xl">REST API</div>
+          <div class="text-sm text-slate-500">Integration</div>
+        </div>
+        <div class="text-center p-4">
+          <div class="text-primary font-bold text-xl">Git</div>
+          <div class="text-sm text-slate-500">Version Control</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Timeline -->
+  <section id="experience" class="py-20 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900/30 dark:to-slate-950">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h3 class="text-3xl font-bold mb-3">Professional Journey</h3>
+        <p class="text-slate-500 mt-2">My career timeline and major milestones</p>
+      </div>
+      
+      <div class="relative">
+        <!-- Timeline Line -->
+        <div class="timeline-line"></div>
+        
+        <!-- Timeline Items -->
+        <div class="space-y-12">
+          <!-- Item 1 -->
+          <div class="relative flex flex-col md:flex-row items-center">
+            <div class="w-full md:w-1/2 pr-0 md:pr-12 text-left md:text-right mb-8 md:mb-0">
+              <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
+                <span class="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">2021 - Present</span>
+                <h4 class="text-xl font-bold mt-3">Senior Android Developer</h4>
+                <p class="text-slate-500 mt-2 text-sm">Leading mobile development teams and architecting scalable Android applications for international clients.</p>
+                <div class="mt-4 flex flex-wrap gap-2">
+                  <span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-xs rounded">Team Leadership</span>
+                  <span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-xs rounded">Architecture Design</span>
+                  <span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-xs rounded">Code Review</span>
+                </div>
+              </div>
+            </div>
+            <div class="timeline-dot bg-primary border-4 border-white dark:border-slate-900"></div>
+            <div class="w-full md:w-1/2 pl-0 md:pl-12"></div>
+          </div>
+          
+          <!-- Item 2 -->
+          <div class="relative flex flex-col md:flex-row items-center">
+            <div class="w-full md:w-1/2 pr-0 md:pr-12"></div>
+            <div class="timeline-dot bg-secondary border-4 border-white dark:border-slate-900"></div>
+            <div class="w-full md:w-1/2 pl-0 md:pl-12 mt-8 md:mt-0">
+              <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
+                <span class="px-3 py-1 bg-secondary/10 text-secondary text-sm rounded-full">2019 - 2021</span>
+                <h4 class="text-xl font-bold mt-3">Android Developer</h4>
+                <p class="text-slate-500 mt-2 text-sm">Built and launched multiple apps on Google Play Store with 100k+ downloads. Worked on e-commerce, social media, and utility apps.</p>
+                <div class="mt-4 flex flex-wrap gap-2">
+                  <span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-xs rounded">Play Store</span>
+                  <span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-xs rounded">UI/UX</span>
+                  <span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-xs rounded">Performance</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Item 3 -->
+          <div class="relative flex flex-col md:flex-row items-center">
+            <div class="w-full md:w-1/2 pr-0 md:pr-12 text-left md:text-right mb-8 md:mb-0">
+              <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
+                <span class="px-3 py-1 bg-teal-500/10 text-teal-500 text-sm rounded-full">2018 - 2019</span>
+                <h4 class="text-xl font-bold mt-3">Junior Android Developer</h4>
+                <p class="text-slate-500 mt-2 text-sm">Started career by learning Android fundamentals. Built small to medium scale applications and contributed to open source projects.</p>
+                <div class="mt-4 flex flex-wrap gap-2">
+                  <span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-xs rounded">Learning</span>
+                  <span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-xs rounded">Open Source</span>
+                  <span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-xs rounded">Fundamentals</span>
+                </div>
+              </div>
+            </div>
+            <div class="timeline-dot bg-teal-500 border-4 border-white dark:border-slate-900"></div>
+            <div class="w-full md:w-1/2 pl-0 md:pl-12"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Web Projects Section -->
-  <section id="live-demos" class="py-20 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900/30 dark:to-slate-950">
+  <section id="live-demos" class="py-20">
     <div class="max-w-6xl mx-auto px-6">
       <div class="text-center mb-16">
         <h3 class="text-3xl font-bold flex items-center justify-center gap-3">
@@ -349,86 +634,6 @@
     </div>
   </section>
 
-  <!-- Skills Section -->
-  <section id="skills" class="py-20">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="text-center mb-16">
-        <h3 class="text-3xl font-bold mb-3">Expertise & Skills</h3>
-        <p class="text-slate-500 mt-2">Professional toolkit for modern app development</p>
-      </div>
-      
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-        <!-- Android Studio -->
-        <div class="skill-card p-8 glass rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary transition group shadow-sm text-center">
-          <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition">
-            <i class="fa-brands fa-android text-5xl text-green-500"></i>
-          </div>
-          <h4 class="font-bold text-lg mb-2">Android Studio</h4>
-          <p class="text-sm text-slate-500">Expert in Android development environment</p>
-          <div class="mt-4 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-            <div class="h-full bg-green-500 rounded-full w-4/5"></div>
-          </div>
-        </div>
-        
-        <!-- Java/Kotlin -->
-        <div class="skill-card p-8 glass rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary transition group shadow-sm text-center">
-          <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-orange-100 to-red-100 dark:from-orange-900/20 dark:to-red-900/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition">
-            <i class="fa-brands fa-java text-5xl text-orange-600"></i>
-          </div>
-          <h4 class="font-bold text-lg mb-2">Java/Kotlin</h4>
-          <p class="text-sm text-slate-500">Native Android development languages</p>
-          <div class="mt-4 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-            <div class="h-full bg-orange-500 rounded-full w-4/5"></div>
-          </div>
-        </div>
-        
-        <!-- Firebase -->
-        <div class="skill-card p-8 glass rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary transition group shadow-sm text-center">
-          <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-yellow-100 to-amber-100 dark:from-yellow-900/20 dark:to-amber-900/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition">
-            <i class="fa-solid fa-fire text-5xl text-yellow-500"></i>
-          </div>
-          <h4 class="font-bold text-lg mb-2">Firebase</h4>
-          <p class="text-sm text-slate-500">Backend & authentication solutions</p>
-          <div class="mt-4 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-            <div class="h-full bg-yellow-500 rounded-full w-3/4"></div>
-          </div>
-        </div>
-        
-        <!-- Room DB -->
-        <div class="skill-card p-8 glass rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary transition group shadow-sm text-center">
-          <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-blue-100 to-cyan-100 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition">
-            <i class="fa-solid fa-database text-5xl text-blue-500"></i>
-          </div>
-          <h4 class="font-bold text-lg mb-2">Room DB</h4>
-          <p class="text-sm text-slate-500">Local database management</p>
-          <div class="mt-4 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-            <div class="h-full bg-blue-500 rounded-full w-3/4"></div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Additional Skills -->
-      <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="text-center p-4">
-          <div class="text-primary font-bold text-xl">MVVM</div>
-          <div class="text-sm text-slate-500">Architecture</div>
-        </div>
-        <div class="text-center p-4">
-          <div class="text-primary font-bold text-xl">Jetpack</div>
-          <div class="text-sm text-slate-500">Components</div>
-        </div>
-        <div class="text-center p-4">
-          <div class="text-primary font-bold text-xl">REST API</div>
-          <div class="text-sm text-slate-500">Integration</div>
-        </div>
-        <div class="text-center p-4">
-          <div class="text-primary font-bold text-xl">Git</div>
-          <div class="text-sm text-slate-500">Version Control</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Android Projects Section -->
   <section id="projects" class="py-20 max-w-6xl mx-auto px-6">
     <div class="text-center mb-16">
@@ -509,59 +714,231 @@
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section id="contact" class="py-20 max-w-6xl mx-auto px-6">
-    <div class="bg-gradient-to-br from-primary via-teal-600 to-emerald-600 rounded-3xl p-12 md:p-20 text-center text-white relative overflow-hidden">
-      <!-- Background Elements -->
-      <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-20 -mt-20"></div>
-      <div class="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full -ml-40 -mb-40"></div>
-      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-white/5 rounded-full"></div>
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="py-20 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900/30 dark:to-slate-950">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h3 class="text-3xl font-bold mb-3">Client Testimonials</h3>
+        <p class="text-slate-500 mt-2">What clients say about my work</p>
+      </div>
       
-      <div class="relative z-10">
-        <h3 class="text-4xl md:text-5xl font-bold mb-6">Ready to Build Your Next Android App?</h3>
-        <p class="text-teal-50 mb-10 max-w-xl mx-auto text-lg opacity-90">
-          Let's discuss how we can build a world-class Android application together. I'm just a message away!
-        </p>
-        
-        <!-- Contact Methods -->
-        <div class="flex flex-wrap justify-center gap-6 mb-16">
-          <a href="mailto:mdraffi530@gmail.com" class="px-8 py-4 bg-white text-primary rounded-2xl font-bold flex items-center gap-3 hover:shadow-xl transition hover:scale-105 shadow-lg">
-            <i class="fa-solid fa-envelope text-lg"></i> Email Me
-          </a>
-          <a href="https://wa.me/8801999842041" target="_blank" class="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold flex items-center gap-3 hover:scale-105 transition shadow-lg">
-            <i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp
-          </a>
-          <a href="tel:+8801999842041" class="px-8 py-4 bg-white/20 backdrop-blur-sm text-white rounded-2xl font-bold flex items-center gap-3 hover:scale-105 transition border border-white/30">
-            <i class="fa-solid fa-phone text-lg"></i> Call Now
-          </a>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 hover:shadow-xl transition">
+          <div class="flex items-center gap-1 mb-4">
+            <i class="fa-solid fa-star text-yellow-500"></i>
+            <i class="fa-solid fa-star text-yellow-500"></i>
+            <i class="fa-solid fa-star text-yellow-500"></i>
+            <i class="fa-solid fa-star text-yellow-500"></i>
+            <i class="fa-solid fa-star text-yellow-500"></i>
+          </div>
+          <p class="text-slate-600 dark:text-slate-400 mb-6 italic">
+            "Rafi delivered our Android app ahead of schedule with excellent quality. His attention to detail is remarkable and the app performance exceeded our expectations."
+          </p>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+              <span class="font-bold text-primary">JD</span>
+            </div>
+            <div>
+              <h5 class="font-bold">John Doe</h5>
+              <p class="text-sm text-slate-500">Tech Startup CEO</p>
+            </div>
+          </div>
         </div>
         
-        <!-- Social Links -->
-        <div class="mt-16 pt-10 border-t border-white/20">
-          <p class="text-white/80 mb-6 text-lg">Connect with me on social media</p>
-          <div class="flex flex-wrap justify-center gap-8">
-            <a href="https://github.com/Md-Rafii" target="_blank" class="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center text-2xl hover:bg-white hover:text-primary transition hover:scale-110">
-              <i class="fa-brands fa-github"></i>
-            </a>
-            <a href="https://web.facebook.com/programmerRafii" target="_blank" class="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center text-2xl hover:bg-white hover:text-primary transition hover:scale-110">
-              <i class="fa-brands fa-facebook"></i>
-            </a>
-            <a href="https://instagram.com/siyamul_hasan_rafi" target="_blank" class="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center text-2xl hover:bg-white hover:text-primary transition hover:scale-110">
-              <i class="fa-brands fa-instagram"></i>
-            </a>
-            <a href="https://x.com/Siyamul_rafi_1" target="_blank" class="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center text-2xl hover:bg-white hover:text-primary transition hover:scale-110">
-              <i class="fa-brands fa-x-twitter"></i>
-            </a>
-            <a href="https://www.linkedin.com/" target="_blank" class="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center text-2xl hover:bg-white hover:text-primary transition hover:scale-110">
-              <i class="fa-brands fa-linkedin"></i>
-            </a>
+        <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 hover:shadow-xl transition">
+          <div class="flex items-center gap-1 mb-4">
+            <i class="fa-solid fa-star text-yellow-500"></i>
+            <i class="fa-solid fa-star text-yellow-500"></i>
+            <i class="fa-solid fa-star text-yellow-500"></i>
+            <i class="fa-solid fa-star text-yellow-500"></i>
+            <i class="fa-solid fa-star text-yellow-500"></i>
+          </div>
+          <p class="text-slate-600 dark:text-slate-400 mb-6 italic">
+            "The app performance is outstanding. Rafi's expertise in Android development saved us months of work. Highly recommend for any Android project."
+          </p>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center">
+              <span class="font-bold text-secondary">SM</span>
+            </div>
+            <div>
+              <h5 class="font-bold">Sarah Miller</h5>
+              <p class="text-sm text-slate-500">Product Manager</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 hover:shadow-xl transition">
+          <div class="flex items-center gap-1 mb-4">
+            <i class="fa-solid fa-star text-yellow-500"></i>
+            <i class="fa-solid fa-star text-yellow-500"></i>
+            <i class="fa-solid fa-star text-yellow-500"></i>
+            <i class="fa-solid fa-star text-yellow-500"></i>
+            <i class="fa-solid fa-star text-yellow-500"></i>
+          </div>
+          <p class="text-slate-600 dark:text-slate-400 mb-6 italic">
+            "Professional, reliable, and highly skilled. Our app has 4.8 rating on Play Store thanks to Rafi's work. Will definitely work with him again."
+          </p>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-teal-500/10 rounded-full flex items-center justify-center">
+              <span class="font-bold text-teal-500">AB</span>
+            </div>
+            <div>
+              <h5 class="font-bold">Alex Brown</h5>
+              <p class="text-sm text-slate-500">CTO, Enterprise Solutions</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Downloadable Resources -->
+  <section class="py-20">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <h3 class="text-3xl font-bold mb-6">Download Resources</h3>
+      <p class="text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto">
+        Get my complete portfolio, resume, and project case studies in one click.
+      </p>
+      
+      <div class="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+        <a href="cv.pdf" download class="group p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 hover:shadow-xl transition no-print">
+          <div class="w-20 h-20 mx-auto mb-6 bg-primary/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition">
+            <i class="fa-solid fa-file-pdf text-4xl text-primary"></i>
+          </div>
+          <h4 class="font-bold text-lg mb-2">Professional CV</h4>
+          <p class="text-sm text-slate-500">Detailed resume with all experiences</p>
+          <div class="mt-4 text-sm text-primary font-medium">Download PDF</div>
+        </a>
+        
+        <a href="portfolio.pdf" download class="group p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 hover:shadow-xl transition no-print">
+          <div class="w-20 h-20 mx-auto mb-6 bg-secondary/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition">
+            <i class="fa-solid fa-briefcase text-4xl text-secondary"></i>
+          </div>
+          <h4 class="font-bold text-lg mb-2">Project Portfolio</h4>
+          <p class="text-sm text-slate-500">Complete project case studies</p>
+          <div class="mt-4 text-sm text-secondary font-medium">Download PDF</div>
+        </a>
+        
+        <a href="references.pdf" download class="group p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 hover:shadow-xl transition no-print">
+          <div class="w-20 h-20 mx-auto mb-6 bg-teal-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition">
+            <i class="fa-solid fa-users text-4xl text-teal-500"></i>
+          </div>
+          <h4 class="font-bold text-lg mb-2">References</h4>
+          <p class="text-sm text-slate-500">Client testimonials & references</p>
+          <div class="mt-4 text-sm text-teal-500 font-medium">Download PDF</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 max-w-6xl mx-auto px-6">
+    <div class="grid md:grid-cols-2 gap-12">
+      <!-- Contact Form -->
+      <div class="glass p-8 rounded-3xl border border-slate-200 dark:border-slate-800">
+        <h4 class="text-2xl font-bold mb-6">Send Me a Message</h4>
+        <form id="contactForm" class="space-y-6">
+          <div>
+            <label class="block text-sm font-medium mb-2">Your Name</label>
+            <input type="text" 
+                   class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-transparent focus:outline-none focus:ring-2 focus:ring-primary form-input"
+                   placeholder="John Doe"
+                   required>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">Email Address</label>
+            <input type="email" 
+                   class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-transparent focus:outline-none focus:ring-2 focus:ring-primary form-input"
+                   placeholder="john@example.com"
+                   required>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">Project Type</label>
+            <select class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-transparent focus:outline-none focus:ring-2 focus:ring-primary form-input">
+              <option>Android App Development</option>
+              <option>App Maintenance</option>
+              <option>UI/UX Design</option>
+              <option>Consultation</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">Message</label>
+            <textarea rows="4" 
+                      class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-transparent focus:outline-none focus:ring-2 focus:ring-primary form-input"
+                      placeholder="Tell me about your project..."
+                      required></textarea>
+          </div>
+          <button type="submit" 
+                  class="w-full px-8 py-4 bg-primary text-white rounded-xl font-bold hover:scale-105 transition shadow-lg no-print">
+            Send Message
+          </button>
+        </form>
+      </div>
+      
+      <!-- Contact Info -->
+      <div>
+        <div class="bg-gradient-to-br from-primary via-teal-600 to-emerald-600 rounded-3xl p-12 text-white relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-20 -mt-20"></div>
+          <div class="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full -ml-40 -mb-40"></div>
+          
+          <div class="relative z-10">
+            <h3 class="text-3xl md:text-4xl font-bold mb-6">Ready to Build Your Next Android App?</h3>
+            <p class="text-teal-50 mb-10 text-lg opacity-90">
+              Let's discuss how we can build a world-class Android application together.
+            </p>
+            
+            <!-- Contact Methods -->
+            <div class="space-y-6 mb-10">
+              <div class="flex items-center gap-4 p-4 bg-white/10 rounded-2xl backdrop-blur-sm">
+                <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                  <i class="fa-solid fa-envelope text-xl"></i>
+                </div>
+                <div>
+                  <h5 class="font-bold">Email</h5>
+                  <p class="text-white/80">mdraffi530@gmail.com</p>
+                </div>
+              </div>
+              
+              <div class="flex items-center gap-4 p-4 bg-white/10 rounded-2xl backdrop-blur-sm">
+                <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                  <i class="fa-brands fa-whatsapp text-xl"></i>
+                </div>
+                <div>
+                  <h5 class="font-bold">WhatsApp</h5>
+                  <p class="text-white/80">+880 1999 842 041</p>
+                </div>
+              </div>
+              
+              <div class="flex items-center gap-4 p-4 bg-white/10 rounded-2xl backdrop-blur-sm">
+                <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                  <i class="fa-solid fa-clock text-xl"></i>
+                </div>
+                <div>
+                  <h5 class="font-bold">Response Time</h5>
+                  <p class="text-white/80">Within 24 hours</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Social Links -->
+            <div class="pt-8 border-t border-white/20">
+              <p class="text-white/80 mb-6">Connect with me</p>
+              <div class="flex gap-6">
+                <a href="https://github.com/Md-Rafii" target="_blank" class="text-2xl hover:text-secondary transition"><i class="fa-brands fa-github"></i></a>
+                <a href="https://web.facebook.com/programmerRafii" target="_blank" class="text-2xl hover:text-secondary transition"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://instagram.com/siyamul_hasan_rafi" target="_blank" class="text-2xl hover:text-secondary transition"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://x.com/Siyamul_rafi_1" target="_blank" class="text-2xl hover:text-secondary transition"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://www.linkedin.com/" target="_blank" class="text-2xl hover:text-secondary transition"><i class="fa-brands fa-linkedin"></i></a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
     
     <!-- Footer -->
-    <div class="mt-12 text-center">
+    <div class="mt-16 text-center">
       <p class="text-slate-500 mb-2">© 2025 Siyamul Hasan Rafi. Built with Passion for Innovation.</p>
       <p class="text-sm text-slate-400">
         Android Developer | Kotlin Expert | UI/UX Enthusiast
@@ -685,23 +1062,66 @@
       });
     });
 
-    // Add animation on scroll
+    // Contact Form Submission
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = new FormData(this);
+        const name = formData.get('name') || this.querySelector('input[type="text"]').value;
+        const email = formData.get('email') || this.querySelector('input[type="email"]').value;
+        const projectType = this.querySelector('select').value;
+        const message = this.querySelector('textarea').value;
+        
+        // Prepare email content
+        const subject = `New Project Inquiry from ${name}`;
+        const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0AProject Type: ${projectType}%0D%0AMessage: ${message}`;
+        
+        // Open default email client
+        window.location.href = `mailto:mdraffi530@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        
+        // Show success message
+        alert('Thank you for your message! Your email client will open. Please send the email to contact me.');
+        
+        // Reset form
+        this.reset();
+      });
+    }
+
+    // Progress bar animation on scroll
+    const progressBars = document.querySelectorAll('.progress-bar');
     const observerOptions = {
-      threshold: 0.1,
+      threshold: 0.5,
       rootMargin: '0px 0px -100px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+          entry.target.classList.add('animate-progress');
+          entry.target.style.animationPlayState = 'running';
         }
       });
     }, observerOptions);
 
+    progressBars.forEach(bar => {
+      observer.observe(bar);
+    });
+
+    // Add animation on scroll for other elements
+    const scrollObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
     // Observe elements to animate
-    document.querySelectorAll('.skill-card, .group').forEach(el => {
-      observer.observe(el);
+    document.querySelectorAll('.skill-card, .group, .timeline-dot').forEach(el => {
+      scrollObserver.observe(el);
     });
 
     // Profile image interaction
@@ -713,7 +1133,7 @@
       });
     }
 
-    // Image error handling - if raffi.png doesn't exist, use fallback
+    // Image error handling
     const img = document.querySelector('.profile-img');
     if (img) {
       img.addEventListener('error', function() {
@@ -721,6 +1141,22 @@
         this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iIzBkOTQ4OCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iNjQiIGZpbGw9IiNmZmZmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIwLjNlbSI+U1I8L3RleHQ+PHRleHQgeD0iNTAlIiB5PSI2MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZmlsbD0iI2ZmZmZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QW5kcm9pZCBEZXZlbG9wZXI8L3RleHQ+PC9zdmc+';
       });
     }
+
+    // Simple Analytics
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    
+    // Track page view
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Page loaded: Portfolio - Siyamul Hasan Rafi');
+      
+      // Track link clicks
+      document.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function() {
+          console.log('Link clicked:', this.href);
+        });
+      });
+    });
   </script>
 </body>
 </html>
