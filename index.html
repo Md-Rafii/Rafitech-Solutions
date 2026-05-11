@@ -1353,27 +1353,139 @@ footer {
 [data-reveal][data-delay="500"] { transition-delay: 0.5s; }
 
 /* ============================================================ RESPONSIVE */
+/* ── HAMBURGER MENU ── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 6px;
+  background: none;
+  border: none;
+}
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(2,4,8,0.97);
+  backdrop-filter: blur(20px);
+  z-index: 999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--muted2);
+  text-decoration: none;
+  padding: 16px 0;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.2s;
+  letter-spacing: -0.5px;
+}
+.mobile-menu a:hover { color: var(--cyan); }
+.mobile-menu-close {
+  position: absolute;
+  top: 24px; right: 24px;
+  background: none;
+  border: 1px solid var(--border2);
+  color: var(--text);
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* ── TABLET: 1024px ── */
 @media (max-width: 1024px) {
-  nav { padding: 20px 32px; }
-  nav.scrolled { padding: 14px 32px; }
+  nav { padding: 18px 28px; }
+  nav.scrolled { padding: 14px 28px; }
   .nav-links { display: none; }
-  #hero { padding: 140px 32px 80px; }
+  .hamburger { display: flex; }
+  #hero { padding: 120px 28px 60px; flex-direction: column; }
   .hero-float { display: none; }
-  section { padding: 80px 32px; }
-  .about-grid { grid-template-columns: 1fr; gap: 48px; }
+  .hero-name { font-size: clamp(2.8rem, 10vw, 5rem); letter-spacing: -2px; }
+  .hero-stats { gap: 24px; flex-wrap: wrap; }
+  section { padding: 80px 28px; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
   .about-img-wrap { display: none; }
-  .skills-grid { grid-template-columns: repeat(2, 1fr); }
-  .projects-grid { grid-template-columns: 1fr; }
-  .project-card.featured { grid-template-columns: 1fr; }
-  .project-card.featured .project-img { height: 220px; }
-  .testimonials-grid { grid-template-columns: 1fr; }
-  .pricing-grid { grid-template-columns: 1fr; }
-  .pricing-card.featured-plan { transform: none; }
-  .contact-wrap { grid-template-columns: 1fr; gap: 48px; }
-  footer { flex-direction: column; gap: 20px; text-align: center; }
+  .skills-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .projects-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .project-card.featured { grid-column: 1 / -1; grid-template-columns: 1fr; }
+  .project-card.featured .project-img { height: 200px; }
+  .testimonials-grid { grid-template-columns: 1fr; gap: 16px; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .pricing-card.featured-plan { transform: none; order: -1; }
+  .contact-wrap { grid-template-columns: 1fr; gap: 40px; }
+  footer { flex-direction: column; gap: 16px; text-align: center; }
   .footer-links { flex-wrap: wrap; justify-content: center; }
   .form-grid { grid-template-columns: 1fr; }
-  .hero-stats { gap: 32px; flex-wrap: wrap; }
+  .github-grid { grid-template-columns: repeat(2, 1fr); }
+  .exp-item { grid-template-columns: 48px 1fr; gap: 20px; }
+  .terminal-section { padding: 60px 28px; }
+  .github-section { padding: 60px 28px; }
+}
+
+/* ── MOBILE: 640px ── */
+@media (max-width: 640px) {
+  nav { padding: 16px 20px; }
+  nav.scrolled { padding: 12px 20px; }
+  .nav-logo { font-size: 1.1rem; }
+  #hero { padding: 100px 20px 48px; }
+  .hero-eyebrow { font-size: 0.68rem; }
+  .hero-name { font-size: clamp(2.4rem, 12vw, 3.5rem); letter-spacing: -1.5px; }
+  .hero-title-bar { font-size: 0.85rem; }
+  .hero-desc { font-size: 0.95rem; }
+  .hero-btns { flex-direction: column; }
+  .btn-primary, .btn-outline { width: 100%; justify-content: center; padding: 14px 24px; }
+  .hero-stats { gap: 20px; }
+  .stat-num { font-size: 1.8rem; }
+  section { padding: 60px 20px; }
+  .section-title { font-size: clamp(1.6rem, 7vw, 2.4rem); }
+  .skills-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .skill-card { padding: 20px 16px; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .demo-grid { grid-template-columns: 1fr !important; }
+  .demo-card-inner { flex-direction: column !important; }
+  .demo-preview { width: 100% !important; height: 180px !important; min-width: unset !important; border-right: none !important; border-bottom: 1px solid var(--border2) !important; }
+  .exp-item { grid-template-columns: 36px 1fr; gap: 14px; }
+  .exp-card { padding: 20px; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .contact-form { padding: 24px 20px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .github-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .gh-card { padding: 20px 16px; }
+  .gh-num { font-size: 2rem; }
+  .terminal-section { padding: 40px 20px; }
+  .terminal-body { padding: 20px; font-size: 0.75rem; }
+  .github-section { padding: 60px 20px; }
+  footer { padding: 32px 20px; }
+  .marquee-item { font-size: 0.88rem; }
+  .pricing-grid { padding: 0 20px; }
+  .testi-card { padding: 24px 20px; }
+  .about-tags { gap: 8px; }
+  .tag { font-size: 0.7rem; padding: 5px 12px; }
+  .about-info-list li { flex-wrap: wrap; gap: 8px; }
+  .about-info-list .info-label { min-width: 80px; }
+  .social-row { flex-wrap: wrap; }
 }
 
 /* ============================================================ GITHUB STATS */
@@ -1421,6 +1533,16 @@ footer {
   text-transform: uppercase;
 }
 .gh-icon { font-size: 1.5rem; color: var(--cyan); }
+
+/* ── DEMO CARD GLOBAL ── */
+.demo-card { cursor: none; }
+.demo-card img { transition: transform 0.5s ease; }
+
+/* Iframe preview shimmer placeholder */
+.demo-card iframe {
+  background: var(--bg3);
+}
+
 </style>
 </head>
 <body>
@@ -1451,8 +1573,25 @@ footer {
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="https://wa.me/8801999842041" target="_blank" class="nav-cta">Hire Me →</a>
+  <div style="display:flex;align-items:center;gap:12px">
+    <a href="https://wa.me/8801999842041" target="_blank" class="nav-cta">Hire Me →</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="mobileClose">✕</button>
+  <a href="#about" class="mobile-nav-link">About</a>
+  <a href="#skills" class="mobile-nav-link">Skills</a>
+  <a href="#experience" class="mobile-nav-link">Timeline</a>
+  <a href="#projects" class="mobile-nav-link">Projects</a>
+  <a href="#testimonials" class="mobile-nav-link">Reviews</a>
+  <a href="#pricing" class="mobile-nav-link">Pricing</a>
+  <a href="#contact" class="mobile-nav-link">Contact</a>
+</div>
 
 <!-- ============================================================ HERO -->
 <section id="hero">
@@ -1770,97 +1909,195 @@ footer {
     <div data-reveal>
       <div class="section-label">Portfolio</div>
       <h2 class="section-title">Featured <span>Projects</span></h2>
-      <p class="section-desc">A selection of Android apps and web projects that showcase my capabilities.</p>
+      <p class="section-desc">Live web projects & Android apps — click to explore.</p>
     </div>
 
-    <div class="projects-grid" style="margin-top:60px">
-      <!-- Featured -->
-      <div class="project-card featured" data-reveal>
-        <div class="project-img">
-          <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=900&q=80" alt="Social Connect"/>
-          <div class="project-img-overlay"></div>
-          <div class="project-badge">FEATURED · KOTLIN</div>
-        </div>
-        <div class="project-body">
-          <div class="project-title">Social Connect App</div>
-          <div class="project-desc">Real-time messaging platform with end-to-end encryption. Features group chats, media sharing, stories & push notifications. Built with Firebase & MVVM architecture.</div>
-          <div class="project-chips">
-            <span class="project-chip">Firebase</span>
-            <span class="project-chip">MVVM</span>
-            <span class="project-chip">Coroutines</span>
-            <span class="project-chip">E2E Encryption</span>
-            <span class="project-chip">Jetpack Compose</span>
+    <!-- DEMO CARDS: full-width horizontal layout -->
+    <div class="demo-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:60px" data-reveal>
+
+      <!-- 1: Social Connect App -->
+      <div class="demo-card" style="background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:all 0.35s;position:relative">
+        <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#0d1e30,#1a2e48)">
+          <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=700&q=70"
+               alt="Social Connect" style="width:100%;height:100%;object-fit:cover;opacity:0.6;transition:transform 0.5s">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,var(--surface),transparent 60%)"></div>
+          <div style="position:absolute;top:14px;left:14px;display:flex;gap:8px">
+            <span style="padding:4px 10px;background:rgba(0,200,255,0.15);border:1px solid rgba(0,200,255,0.3);border-radius:20px;font-family:var(--font-mono);font-size:0.68rem;color:var(--cyan)">KOTLIN</span>
+            <span style="padding:4px 10px;background:rgba(0,0,0,0.5);border:1px solid var(--border2);border-radius:20px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">ANDROID</span>
           </div>
-          <div class="project-links">
-            <a href="https://github.com/Md-Rafii" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> View on GitHub</a>
-            <a href="#" class="project-link"><i class="fa-brands fa-google-play"></i> Play Store</a>
+          <div style="position:absolute;top:14px;right:14px;width:36px;height:36px;background:rgba(0,200,255,0.1);border:1px solid var(--border2);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--cyan)"><i class="fa-brands fa-android"></i></div>
+        </div>
+        <div style="padding:24px">
+          <div style="font-family:var(--font-display);font-size:1.15rem;font-weight:700;margin-bottom:8px">Social Connect App</div>
+          <div style="font-size:0.85rem;color:var(--muted2);line-height:1.7;margin-bottom:16px">Real-time messaging with E2E encryption, group chats, media sharing & Firebase MVVM.</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px">
+            <span style="padding:3px 9px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:4px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">Firebase</span>
+            <span style="padding:3px 9px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:4px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">MVVM</span>
+            <span style="padding:3px 9px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:4px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">Coroutines</span>
+            <span style="padding:3px 9px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:4px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">Encryption</span>
+          </div>
+          <a href="https://github.com/Md-Rafii" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:0.75rem;color:var(--cyan);text-decoration:none;border:1px solid rgba(0,200,255,0.25);padding:8px 14px;border-radius:6px;transition:all 0.2s" onmouseover="this.style.background='rgba(0,200,255,0.08)'" onmouseout="this.style.background='transparent'">
+            <i class="fa-brands fa-github"></i> GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- 2: MyCash -->
+      <div class="demo-card" style="background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:all 0.35s;position:relative">
+        <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#0a1a10,#0d2818)">
+          <iframe src="https://md-rafii.github.io/MyCash/" 
+                  style="width:200%;height:200%;transform:scale(0.5);transform-origin:0 0;border:none;pointer-events:none"
+                  loading="lazy" title="MyCash Preview"></iframe>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,var(--surface),transparent 55%)"></div>
+          <div style="position:absolute;top:14px;left:14px;display:flex;gap:8px">
+            <span style="padding:4px 10px;background:rgba(0,255,136,0.15);border:1px solid rgba(0,255,136,0.3);border-radius:20px;font-family:var(--font-mono);font-size:0.68rem;color:var(--green)">LIVE DEMO</span>
+            <span style="padding:4px 10px;background:rgba(0,0,0,0.5);border:1px solid var(--border2);border-radius:20px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">WEB APP</span>
+          </div>
+          <div style="position:absolute;top:14px;right:14px;width:36px;height:36px;background:rgba(0,255,136,0.1);border:1px solid var(--border2);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--green)">💰</div>
+        </div>
+        <div style="padding:24px">
+          <div style="font-family:var(--font-display);font-size:1.15rem;font-weight:700;margin-bottom:8px">MyCash — Finance Tracker</div>
+          <div style="font-size:0.85rem;color:var(--muted2);line-height:1.7;margin-bottom:16px">Personal finance management app. Track income, expenses & due payments with bKash/Nagad SMS integration.</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px">
+            <span style="padding:3px 9px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:4px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">Firebase RTDB</span>
+            <span style="padding:3px 9px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:4px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">JavaScript</span>
+            <span style="padding:3px 9px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:4px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">Bengali UI</span>
+          </div>
+          <div style="display:flex;gap:10px">
+            <a href="https://md-rafii.github.io/MyCash/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:0.75rem;color:var(--green);text-decoration:none;border:1px solid rgba(0,255,136,0.25);padding:8px 14px;border-radius:6px;transition:all 0.2s" onmouseover="this.style.background='rgba(0,255,136,0.08)'" onmouseout="this.style.background='transparent'">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
+            </a>
+            <a href="https://github.com/Md-Rafii" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:0.75rem;color:var(--muted2);text-decoration:none;border:1px solid var(--border);padding:8px 14px;border-radius:6px;transition:all 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.background='transparent'">
+              <i class="fa-brands fa-github"></i> Code
+            </a>
           </div>
         </div>
       </div>
 
-      <!-- Card 2 -->
-      <div class="project-card" data-reveal data-delay="100">
-        <div class="project-img">
-          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=700&q=80" alt="Task Automation"/>
-          <div class="project-img-overlay"></div>
-          <div class="project-badge">JAVA</div>
-        </div>
-        <div class="project-body">
-          <div class="project-title">Task Automation Tool</div>
-          <div class="project-desc">Background service manager with WorkManager, scheduling, and smart notification management.</div>
-          <div class="project-chips">
-            <span class="project-chip">WorkManager</span>
-            <span class="project-chip">SQLite</span>
-            <span class="project-chip">Notifications</span>
+      <!-- 3: Question Template -->
+      <div class="demo-card" style="background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:all 0.35s;position:relative">
+        <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#0a0d1a,#121830)">
+          <iframe src="https://md-rafii.github.io/Question-Template/" 
+                  style="width:200%;height:200%;transform:scale(0.5);transform-origin:0 0;border:none;pointer-events:none"
+                  loading="lazy" title="Question Template Preview"></iframe>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,var(--surface),transparent 55%)"></div>
+          <div style="position:absolute;top:14px;left:14px;display:flex;gap:8px">
+            <span style="padding:4px 10px;background:rgba(168,85,247,0.15);border:1px solid rgba(168,85,247,0.3);border-radius:20px;font-family:var(--font-mono);font-size:0.68rem;color:var(--purple)">LIVE DEMO</span>
+            <span style="padding:4px 10px;background:rgba(0,0,0,0.5);border:1px solid var(--border2);border-radius:20px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">TOOL</span>
           </div>
-          <div class="project-links">
-            <a href="https://github.com/Md-Rafii" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> GitHub</a>
-          </div>
+          <div style="position:absolute;top:14px;right:14px;width:36px;height:36px;background:rgba(168,85,247,0.1);border:1px solid var(--border2);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--purple)">📝</div>
         </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="project-card" data-reveal data-delay="200">
-        <div class="project-img">
-          <img src="https://images.unsplash.com/photo-1588600878108-578307a3cc9d?auto=format&fit=crop&w=700&q=80" alt="Blood Donor"/>
-          <div class="project-img-overlay"></div>
-          <div class="project-badge">WEB · HTML/CSS</div>
-        </div>
-        <div class="project-body">
-          <div class="project-title">Blood Donor Portal</div>
-          <div class="project-desc">Community platform connecting blood donors with recipients. Responsive UI with donor search & appointment system.</div>
-          <div class="project-chips">
-            <span class="project-chip">HTML5</span>
-            <span class="project-chip">CSS3</span>
-            <span class="project-chip">JavaScript</span>
+        <div style="padding:24px">
+          <div style="font-family:var(--font-display);font-size:1.15rem;font-weight:700;margin-bottom:8px">Question Template Maker</div>
+          <div style="font-size:0.85rem;color:var(--muted2);line-height:1.7;margin-bottom:16px">Dynamic exam & quiz question template generator. Auto-format, print-ready output for teachers & students.</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px">
+            <span style="padding:3px 9px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:4px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">HTML5</span>
+            <span style="padding:3px 9px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:4px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">CSS3</span>
+            <span style="padding:3px 9px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:4px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">JavaScript</span>
+            <span style="padding:3px 9px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:4px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">Print API</span>
           </div>
-          <div class="project-links">
-            <a href="https://md-rafii.github.io/blood-donor-website/" target="_blank" class="project-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
+          <div style="display:flex;gap:10px">
+            <a href="https://md-rafii.github.io/Question-Template/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:0.75rem;color:var(--purple);text-decoration:none;border:1px solid rgba(168,85,247,0.25);padding:8px 14px;border-radius:6px;transition:all 0.2s" onmouseover="this.style.background='rgba(168,85,247,0.08)'" onmouseout="this.style.background='transparent'">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
+            </a>
+            <a href="https://github.com/Md-Rafii" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:0.75rem;color:var(--muted2);text-decoration:none;border:1px solid var(--border);padding:8px 14px;border-radius:6px;transition:all 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.background='transparent'">
+              <i class="fa-brands fa-github"></i> Code
+            </a>
           </div>
         </div>
       </div>
 
-      <!-- Card 4 -->
-      <div class="project-card" data-reveal data-delay="300">
-        <div class="project-img">
-          <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?auto=format&fit=crop&w=700&q=80" alt="Wish Love"/>
-          <div class="project-img-overlay"></div>
-          <div class="project-badge">WEB · INTERACTIVE</div>
-        </div>
-        <div class="project-body">
-          <div class="project-title">Wish Love Web</div>
-          <div class="project-desc">Immersive interactive web experience with smooth animations and creative wish-themed greetings.</div>
-          <div class="project-chips">
-            <span class="project-chip">Animations</span>
-            <span class="project-chip">Interactive</span>
-            <span class="project-chip">Responsive</span>
+      <!-- 4: Blood Donor -->
+      <div class="demo-card" style="background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:all 0.35s;position:relative">
+        <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#1a0505,#2d0a0a)">
+          <iframe src="https://md-rafii.github.io/blood-donor-website/" 
+                  style="width:200%;height:200%;transform:scale(0.5);transform-origin:0 0;border:none;pointer-events:none"
+                  loading="lazy" title="Blood Donor Preview"></iframe>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,var(--surface),transparent 55%)"></div>
+          <div style="position:absolute;top:14px;left:14px;display:flex;gap:8px">
+            <span style="padding:4px 10px;background:rgba(255,71,87,0.15);border:1px solid rgba(255,71,87,0.3);border-radius:20px;font-family:var(--font-mono);font-size:0.68rem;color:var(--red)">LIVE DEMO</span>
+            <span style="padding:4px 10px;background:rgba(0,0,0,0.5);border:1px solid var(--border2);border-radius:20px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">COMMUNITY</span>
           </div>
-          <div class="project-links">
-            <a href="https://md-rafii.github.io/Wish_love/" target="_blank" class="project-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
+          <div style="position:absolute;top:14px;right:14px;width:36px;height:36px;background:rgba(255,71,87,0.1);border:1px solid var(--border2);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--red)">🩸</div>
+        </div>
+        <div style="padding:24px">
+          <div style="font-family:var(--font-display);font-size:1.15rem;font-weight:700;margin-bottom:8px">Blood Donor Portal</div>
+          <div style="font-size:0.85rem;color:var(--muted2);line-height:1.7;margin-bottom:16px">Community platform connecting blood donors with recipients. Features donor search, appointment system & responsive UI.</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px">
+            <span style="padding:3px 9px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:4px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">Responsive</span>
+            <span style="padding:3px 9px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:4px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">UX Design</span>
+            <span style="padding:3px 9px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:4px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">Healthcare</span>
+          </div>
+          <div style="display:flex;gap:10px">
+            <a href="https://md-rafii.github.io/blood-donor-website/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:0.75rem;color:var(--red);text-decoration:none;border:1px solid rgba(255,71,87,0.25);padding:8px 14px;border-radius:6px;transition:all 0.2s" onmouseover="this.style.background='rgba(255,71,87,0.08)'" onmouseout="this.style.background='transparent'">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
+            </a>
+            <a href="https://github.com/Md-Rafii" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:0.75rem;color:var(--muted2);text-decoration:none;border:1px solid var(--border);padding:8px 14px;border-radius:6px;transition:all 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.background='transparent'">
+              <i class="fa-brands fa-github"></i> Code
+            </a>
           </div>
         </div>
       </div>
-    </div>
+
+      <!-- 5: Wish Love -->
+      <div class="demo-card" style="background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:all 0.35s;position:relative">
+        <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#1a0a14,#280d1e)">
+          <iframe src="https://md-rafii.github.io/Wish_love/" 
+                  style="width:200%;height:200%;transform:scale(0.5);transform-origin:0 0;border:none;pointer-events:none"
+                  loading="lazy" title="Wish Love Preview"></iframe>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,var(--surface),transparent 55%)"></div>
+          <div style="position:absolute;top:14px;left:14px;display:flex;gap:8px">
+            <span style="padding:4px 10px;background:rgba(251,191,36,0.15);border:1px solid rgba(251,191,36,0.3);border-radius:20px;font-family:var(--font-mono);font-size:0.68rem;color:var(--yellow)">LIVE DEMO</span>
+            <span style="padding:4px 10px;background:rgba(0,0,0,0.5);border:1px solid var(--border2);border-radius:20px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">INTERACTIVE</span>
+          </div>
+          <div style="position:absolute;top:14px;right:14px;width:36px;height:36px;background:rgba(251,191,36,0.1);border:1px solid var(--border2);border-radius:8px;display:flex;align-items:center;justify-content:center">💝</div>
+        </div>
+        <div style="padding:24px">
+          <div style="font-family:var(--font-display);font-size:1.15rem;font-weight:700;margin-bottom:8px">Wish Love Web</div>
+          <div style="font-size:0.85rem;color:var(--muted2);line-height:1.7;margin-bottom:16px">Immersive interactive web experience with smooth animations & creative wish-themed greetings for special occasions.</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px">
+            <span style="padding:3px 9px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:4px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">Animations</span>
+            <span style="padding:3px 9px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:4px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">CSS Effects</span>
+            <span style="padding:3px 9px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:4px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">Interactive</span>
+          </div>
+          <div style="display:flex;gap:10px">
+            <a href="https://md-rafii.github.io/Wish_love/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:0.75rem;color:var(--yellow);text-decoration:none;border:1px solid rgba(251,191,36,0.25);padding:8px 14px;border-radius:6px;transition:all 0.2s" onmouseover="this.style.background='rgba(251,191,36,0.08)'" onmouseout="this.style.background='transparent'">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
+            </a>
+            <a href="https://github.com/Md-Rafii" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:0.75rem;color:var(--muted2);text-decoration:none;border:1px solid var(--border);padding:8px 14px;border-radius:6px;transition:all 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.background='transparent'">
+              <i class="fa-brands fa-github"></i> Code
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6: Task Automation -->
+      <div class="demo-card" style="background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:all 0.35s;position:relative">
+        <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#0a1505,#101e08)">
+          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=700&q=70"
+               alt="Task Automation" style="width:100%;height:100%;object-fit:cover;opacity:0.5;transition:transform 0.5s">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,var(--surface),transparent 55%)"></div>
+          <div style="position:absolute;top:14px;left:14px;display:flex;gap:8px">
+            <span style="padding:4px 10px;background:rgba(255,107,53,0.15);border:1px solid rgba(255,107,53,0.3);border-radius:20px;font-family:var(--font-mono);font-size:0.68rem;color:var(--orange)">JAVA</span>
+            <span style="padding:4px 10px;background:rgba(0,0,0,0.5);border:1px solid var(--border2);border-radius:20px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">ANDROID</span>
+          </div>
+          <div style="position:absolute;top:14px;right:14px;width:36px;height:36px;background:rgba(255,107,53,0.1);border:1px solid var(--border2);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--orange)">⚙️</div>
+        </div>
+        <div style="padding:24px">
+          <div style="font-family:var(--font-display);font-size:1.15rem;font-weight:700;margin-bottom:8px">Task Automation Tool</div>
+          <div style="font-size:0.85rem;color:var(--muted2);line-height:1.7;margin-bottom:16px">Android background service manager with WorkManager, smart scheduling & notification automation.</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px">
+            <span style="padding:3px 9px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:4px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">WorkManager</span>
+            <span style="padding:3px 9px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:4px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">Room DB</span>
+            <span style="padding:3px 9px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:4px;font-family:var(--font-mono);font-size:0.68rem;color:var(--muted2)">Notifications</span>
+          </div>
+          <a href="https://github.com/Md-Rafii" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:0.75rem;color:var(--orange);text-decoration:none;border:1px solid rgba(255,107,53,0.25);padding:8px 14px;border-radius:6px;transition:all 0.2s" onmouseover="this.style.background='rgba(255,107,53,0.08)'" onmouseout="this.style.background='transparent'">
+            <i class="fa-brands fa-github"></i> GitHub
+          </a>
+        </div>
+      </div>
+
+    </div><!-- /demo-grid -->
   </div>
 </section>
 
@@ -2312,6 +2549,55 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
   toast.style.display = 'block';
   setTimeout(() => toast.style.display = 'none', 4000);
   this.reset();
+});
+
+// ============================================================
+// HAMBURGER MENU
+// ============================================================
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileClose = document.getElementById('mobileClose');
+
+if (hamburger) {
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+}
+if (mobileClose) {
+  mobileClose.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+}
+document.querySelectorAll('.mobile-nav-link').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+// ============================================================
+// DEMO CARD HOVER — lift + glow effect
+// ============================================================
+document.querySelectorAll('.demo-card').forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    card.style.transform = 'translateY(-8px)';
+    card.style.borderColor = 'rgba(0,200,255,0.3)';
+    card.style.boxShadow = '0 24px 48px rgba(0,0,0,0.5)';
+    const img = card.querySelector('img');
+    if (img) img.style.transform = 'scale(1.06)';
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'none';
+    card.style.borderColor = '';
+    card.style.boxShadow = 'none';
+    const img = card.querySelector('img');
+    if (img) img.style.transform = 'none';
+  });
 });
 
 // ============================================================
